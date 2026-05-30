@@ -50,6 +50,26 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
     return sort.direction === "asc" ? "ascending" : "descending";
   }
 
+  function getSortAssistiveLabel(key: TableSortKey) {
+    if (sort.key !== key) {
+      return "Not sorted. Activate to sort this column.";
+    }
+
+    return `Sorted ${sort.direction === "asc" ? "ascending" : "descending"}. Activate to reverse order.`;
+  }
+
+  function getSortButtonLabel(label: string, key: TableSortKey) {
+    return `${label}. ${getSortAssistiveLabel(key)}`;
+  }
+
+  function getSortIndicator(key: TableSortKey) {
+    if (sort.key !== key) {
+      return "Sort";
+    }
+
+    return sort.direction === "asc" ? "Asc" : "Desc";
+  }
+
   return (
     <div className="table-preview">
       <TableToolbar
@@ -59,7 +79,16 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
         onClear={() => setFilters({ search: "", segment: "all", status: "all" })}
       />
       <ResultSummary summary={summary} hasActiveFilters={Boolean(hasActiveFilters)} filters={filters} />
-      <div className="table-scroll" role="region" aria-label="Static data table preview" tabIndex={0}>
+      <p id="table-scroll-cue" className="table-scroll-cue">
+        More columns are available across the table. On narrow screens, scroll sideways inside the table area.
+      </p>
+      <div
+        className="table-scroll"
+        role="region"
+        aria-label="Static data table preview"
+        aria-describedby="table-scroll-cue"
+        tabIndex={0}
+      >
         <table>
           <caption>
             Public-safe sample records showing account segment signals, owner workflows, confidence, status,
@@ -68,25 +97,57 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
           <thead>
             <tr>
               <th scope="col" aria-sort={getAriaSort("accountSegment")}>
-                <button type="button" className="table-sort-button" onClick={() => updateSort("accountSegment")}>
+                <button
+                  type="button"
+                  className="table-sort-button"
+                  aria-label={getSortButtonLabel("Account segment", "accountSegment")}
+                  onClick={() => updateSort("accountSegment")}
+                >
                   Account segment
+                  <span className="sort-indicator" aria-hidden="true">
+                    {getSortIndicator("accountSegment")}
+                  </span>
                 </button>
               </th>
               <th scope="col" aria-sort={getAriaSort("signal")}>
-                <button type="button" className="table-sort-button" onClick={() => updateSort("signal")}>
+                <button
+                  type="button"
+                  className="table-sort-button"
+                  aria-label={getSortButtonLabel("Signal", "signal")}
+                  onClick={() => updateSort("signal")}
+                >
                   Signal
+                  <span className="sort-indicator" aria-hidden="true">
+                    {getSortIndicator("signal")}
+                  </span>
                 </button>
               </th>
               <th scope="col">Owner workflow</th>
               <th scope="col" aria-sort={getAriaSort("confidence")}>
-                <button type="button" className="table-sort-button" onClick={() => updateSort("confidence")}>
+                <button
+                  type="button"
+                  className="table-sort-button"
+                  aria-label={getSortButtonLabel("Confidence", "confidence")}
+                  onClick={() => updateSort("confidence")}
+                >
                   Confidence
+                  <span className="sort-indicator" aria-hidden="true">
+                    {getSortIndicator("confidence")}
+                  </span>
                 </button>
               </th>
               <th scope="col">Status</th>
               <th scope="col" aria-sort={getAriaSort("lastReviewed")}>
-                <button type="button" className="table-sort-button" onClick={() => updateSort("lastReviewed")}>
+                <button
+                  type="button"
+                  className="table-sort-button"
+                  aria-label={getSortButtonLabel("Last reviewed", "lastReviewed")}
+                  onClick={() => updateSort("lastReviewed")}
+                >
                   Last reviewed
+                  <span className="sort-indicator" aria-hidden="true">
+                    {getSortIndicator("lastReviewed")}
+                  </span>
                 </button>
               </th>
             </tr>
@@ -109,6 +170,7 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
               <tr>
                 <td colSpan={6}>
                   <div className="table-empty-state">
+                    <span className="table-empty-state__mark" aria-hidden="true" />
                     <strong>No matching sample records.</strong>
                     <span>Adjust search, segment, or status filters to restore the table.</span>
                   </div>

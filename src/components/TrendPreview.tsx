@@ -17,13 +17,22 @@ export function TrendPreview({ points }: TrendPreviewProps) {
         <h3 id="trend-preview-title">Analytics visual preview</h3>
         <p>Dependency-free SVG trend and list-backed values so the visual is meaningful without a chart library.</p>
       </div>
-      <div className="sparkline-panel" role="img" aria-labelledby="sparkline-title sparkline-summary">
+      <div className="sparkline-panel">
         <div className="sparkline-panel__meta">
           <p id="sparkline-title">Workflow quality trend</p>
           <strong>{formatPercent(summary.latest.value)}</strong>
           <span id="sparkline-summary">{summary.sentence}</span>
         </div>
-        <svg viewBox="0 0 360 140" aria-hidden="true" focusable="false">
+        <svg
+          viewBox="0 0 360 140"
+          role="img"
+          aria-labelledby="sparkline-svg-title sparkline-svg-desc"
+          focusable="false"
+        >
+          <title id="sparkline-svg-title">Workflow quality trend sparkline</title>
+          <desc id="sparkline-svg-desc">
+            {summary.sentence} Latest value is {formatPercent(summary.latest.value)}.
+          </desc>
           <line x1="14" y1="126" x2="346" y2="126" className="sparkline-axis" />
           <line x1="14" y1="14" x2="14" y2="126" className="sparkline-axis" />
           <text x="16" y="24" className="sparkline-label">
@@ -39,7 +48,11 @@ export function TrendPreview({ points }: TrendPreviewProps) {
 
             return (
               <g key={point.id}>
+                <line x1={x} y1="126" x2={x} y2={y} className="sparkline-guide" />
                 <circle cx={x} cy={y} r="4.5" className="sparkline-point" />
+                <text x={x} y={Math.max(20, y - 10)} className="sparkline-label sparkline-label--value">
+                  {formatPercent(point.value)}
+                </text>
                 <text x={x} y="136" className="sparkline-label sparkline-label--tick">
                   {point.label.replace("Week ", "W")}
                 </text>
