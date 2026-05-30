@@ -12,9 +12,43 @@ import {
 
 type DataTablePreviewProps = {
   rows: TableRecord[];
+  copy: {
+    toolbarSearch: string;
+    searchPlaceholder: string;
+    segmentLabel: string;
+    allSegments: string;
+    statusLabel: string;
+    allStatuses: string;
+    clearFilters: string;
+    resultShowing: string;
+    resultOf: string;
+    resultRecords: string;
+    averageConfidence: string;
+    statusCountsLabel: string;
+    activeFilters: string;
+    noFilters: string;
+    anySearch: string;
+    columns: Record<TableSortKey | "ownerWorkflow" | "status", string>;
+    sortIdle: string;
+    sortAsc: string;
+    sortDesc: string;
+    sortAriaIdle: string;
+    sortAriaReverse: string;
+    scrollCue: string;
+    regionLabel: string;
+    caption: string;
+    emptyTitle: string;
+    emptyBody: string;
+    helper: string;
+  };
+  statusLabels: {
+    Ready: string;
+    Watch: string;
+    Review: string;
+  };
 };
 
-export function DataTablePreview({ rows }: DataTablePreviewProps) {
+export function DataTablePreview({ rows, copy, statusLabels }: DataTablePreviewProps) {
   const [filters, setFilters] = useState<TableFilters>({
     search: "",
     segment: "all",
@@ -52,10 +86,10 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
 
   function getSortAssistiveLabel(key: TableSortKey) {
     if (sort.key !== key) {
-      return "Not sorted. Activate to sort this column.";
+      return copy.sortAriaIdle;
     }
 
-    return `Sorted ${sort.direction === "asc" ? "ascending" : "descending"}. Activate to reverse order.`;
+    return `${sort.direction === "asc" ? copy.sortAsc : copy.sortDesc}. ${copy.sortAriaReverse}`;
   }
 
   function getSortButtonLabel(label: string, key: TableSortKey) {
@@ -64,10 +98,10 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
 
   function getSortIndicator(key: TableSortKey) {
     if (sort.key !== key) {
-      return "Sort";
+      return copy.sortIdle;
     }
 
-    return sort.direction === "asc" ? "Asc" : "Desc";
+    return sort.direction === "asc" ? copy.sortAsc : copy.sortDesc;
   }
 
   return (
@@ -75,35 +109,40 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
       <TableToolbar
         filters={filters}
         segments={segments}
+        copy={copy}
+        statusLabels={statusLabels}
         onFilterChange={updateFilter}
         onClear={() => setFilters({ search: "", segment: "all", status: "all" })}
       />
-      <ResultSummary summary={summary} hasActiveFilters={Boolean(hasActiveFilters)} filters={filters} />
+      <ResultSummary
+        summary={summary}
+        hasActiveFilters={Boolean(hasActiveFilters)}
+        filters={filters}
+        copy={copy}
+        statusLabels={statusLabels}
+      />
       <p id="table-scroll-cue" className="table-scroll-cue">
-        More columns are available across the table. On narrow screens, scroll sideways inside the table area.
+        {copy.scrollCue}
       </p>
       <div
         className="table-scroll"
         role="region"
-        aria-label="Static data table preview"
+        aria-label={copy.regionLabel}
         aria-describedby="table-scroll-cue"
         tabIndex={0}
       >
         <table>
-          <caption>
-            Public-safe sample records showing account segment signals, owner workflows, confidence, status,
-            and review recency.
-          </caption>
+          <caption>{copy.caption}</caption>
           <thead>
             <tr>
               <th scope="col" aria-sort={getAriaSort("accountSegment")}>
                 <button
                   type="button"
                   className="table-sort-button"
-                  aria-label={getSortButtonLabel("Account segment", "accountSegment")}
+                  aria-label={getSortButtonLabel(copy.columns.accountSegment, "accountSegment")}
                   onClick={() => updateSort("accountSegment")}
                 >
-                  Account segment
+                  {copy.columns.accountSegment}
                   <span className="sort-indicator" aria-hidden="true">
                     {getSortIndicator("accountSegment")}
                   </span>
@@ -113,38 +152,38 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
                 <button
                   type="button"
                   className="table-sort-button"
-                  aria-label={getSortButtonLabel("Signal", "signal")}
+                  aria-label={getSortButtonLabel(copy.columns.signal, "signal")}
                   onClick={() => updateSort("signal")}
                 >
-                  Signal
+                  {copy.columns.signal}
                   <span className="sort-indicator" aria-hidden="true">
                     {getSortIndicator("signal")}
                   </span>
                 </button>
               </th>
-              <th scope="col">Owner workflow</th>
+              <th scope="col">{copy.columns.ownerWorkflow}</th>
               <th scope="col" aria-sort={getAriaSort("confidence")}>
                 <button
                   type="button"
                   className="table-sort-button"
-                  aria-label={getSortButtonLabel("Confidence", "confidence")}
+                  aria-label={getSortButtonLabel(copy.columns.confidence, "confidence")}
                   onClick={() => updateSort("confidence")}
                 >
-                  Confidence
+                  {copy.columns.confidence}
                   <span className="sort-indicator" aria-hidden="true">
                     {getSortIndicator("confidence")}
                   </span>
                 </button>
               </th>
-              <th scope="col">Status</th>
+              <th scope="col">{copy.columns.status}</th>
               <th scope="col" aria-sort={getAriaSort("lastReviewed")}>
                 <button
                   type="button"
                   className="table-sort-button"
-                  aria-label={getSortButtonLabel("Last reviewed", "lastReviewed")}
+                  aria-label={getSortButtonLabel(copy.columns.lastReviewed, "lastReviewed")}
                   onClick={() => updateSort("lastReviewed")}
                 >
-                  Last reviewed
+                  {copy.columns.lastReviewed}
                   <span className="sort-indicator" aria-hidden="true">
                     {getSortIndicator("lastReviewed")}
                   </span>
@@ -161,7 +200,7 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
                   <td>{row.ownerWorkflow}</td>
                   <td>{row.confidence}%</td>
                   <td>
-                    <StatusPill status={row.status} />
+                    <StatusPill status={row.status} label={statusLabels[row.status]} />
                   </td>
                   <td>{row.lastReviewed}</td>
                 </tr>
@@ -171,8 +210,8 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
                 <td colSpan={6}>
                   <div className="table-empty-state">
                     <span className="table-empty-state__mark" aria-hidden="true" />
-                    <strong>No matching sample records.</strong>
-                    <span>Adjust search, segment, or status filters to restore the table.</span>
+                    <strong>{copy.emptyTitle}</strong>
+                    <span>{copy.emptyBody}</span>
                   </div>
                 </td>
               </tr>
@@ -180,10 +219,7 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
           </tbody>
         </table>
       </div>
-      <p className="helper-copy">
-        Table clarity matters because many BtoB SaaS workflows rely on dense operational records. This
-        phase demonstrates the baseline without adding a table library.
-      </p>
+      <p className="helper-copy">{copy.helper}</p>
     </div>
   );
 }
@@ -191,26 +227,28 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
 type TableToolbarProps = {
   filters: TableFilters;
   segments: string[];
+  copy: DataTablePreviewProps["copy"];
+  statusLabels: DataTablePreviewProps["statusLabels"];
   onFilterChange: (key: keyof TableFilters, value: string) => void;
   onClear: () => void;
 };
 
-function TableToolbar({ filters, segments, onFilterChange, onClear }: TableToolbarProps) {
+function TableToolbar({ filters, segments, copy, statusLabels, onFilterChange, onClear }: TableToolbarProps) {
   return (
     <div className="table-toolbar">
       <label>
-        Search records
+        {copy.toolbarSearch}
         <input
           type="search"
           value={filters.search}
           onChange={(event) => onFilterChange("search", event.target.value)}
-          placeholder="Try Ready, Watch, or activation"
+          placeholder={copy.searchPlaceholder}
         />
       </label>
       <label>
-        Segment
+        {copy.segmentLabel}
         <select value={filters.segment} onChange={(event) => onFilterChange("segment", event.target.value)}>
-          <option value="all">All segments</option>
+          <option value="all">{copy.allSegments}</option>
           {segments.map((segment) => (
             <option key={segment} value={segment}>
               {segment}
@@ -219,16 +257,16 @@ function TableToolbar({ filters, segments, onFilterChange, onClear }: TableToolb
         </select>
       </label>
       <label>
-        Status
+        {copy.statusLabel}
         <select value={filters.status} onChange={(event) => onFilterChange("status", event.target.value)}>
-          <option value="all">All statuses</option>
-          <option value="Ready">Ready</option>
-          <option value="Watch">Watch</option>
-          <option value="Review">Review</option>
+          <option value="all">{copy.allStatuses}</option>
+          <option value="Ready">{statusLabels.Ready}</option>
+          <option value="Watch">{statusLabels.Watch}</option>
+          <option value="Review">{statusLabels.Review}</option>
         </select>
       </label>
       <button type="button" onClick={onClear}>
-        Clear filters
+        {copy.clearFilters}
       </button>
     </div>
   );
@@ -238,28 +276,31 @@ type ResultSummaryProps = {
   summary: ReturnType<typeof getTableSummary>;
   hasActiveFilters: boolean;
   filters: TableFilters;
+  copy: DataTablePreviewProps["copy"];
+  statusLabels: DataTablePreviewProps["statusLabels"];
 };
 
-function ResultSummary({ summary, hasActiveFilters, filters }: ResultSummaryProps) {
+function ResultSummary({ summary, hasActiveFilters, filters, copy, statusLabels }: ResultSummaryProps) {
   return (
     <div className="result-summary" aria-live="polite">
       <p>
-        Showing <strong>{summary.visible}</strong> of <strong>{summary.total}</strong> sample records.
-        {summary.visible > 0 ? <> Average confidence is <strong>{summary.averageConfidence}%</strong>.</> : null}
+        {copy.resultShowing} <strong>{summary.visible}</strong> {copy.resultOf} <strong>{summary.total}</strong>{" "}
+        {copy.resultRecords}
+        {summary.visible > 0 ? <> {copy.averageConfidence} <strong>{summary.averageConfidence}%</strong>.</> : null}
       </p>
-      <ul aria-label="Visible status counts">
-        <li>Ready: {summary.ready}</li>
-        <li>Watch: {summary.watch}</li>
-        <li>Review: {summary.review}</li>
+      <ul aria-label={copy.statusCountsLabel}>
+        <li>{statusLabels.Ready}: {summary.ready}</li>
+        <li>{statusLabels.Watch}: {summary.watch}</li>
+        <li>{statusLabels.Review}: {summary.review}</li>
       </ul>
       {hasActiveFilters ? (
         <p className="active-filters">
-          Active filters: {filters.search ? `search "${filters.search}"` : "any search"},{" "}
-          {filters.segment === "all" ? "all segments" : filters.segment},{" "}
-          {filters.status === "all" ? "all statuses" : filters.status}
+          {copy.activeFilters}: {filters.search ? `"${filters.search}"` : copy.anySearch},{" "}
+          {filters.segment === "all" ? copy.allSegments : filters.segment},{" "}
+          {filters.status === "all" ? copy.allStatuses : statusLabels[filters.status as keyof typeof statusLabels]}
         </p>
       ) : (
-        <p className="active-filters">No filters are active.</p>
+        <p className="active-filters">{copy.noFilters}</p>
       )}
     </div>
   );

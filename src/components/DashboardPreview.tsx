@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import type { DashboardMetric, SegmentBreakdown, TrendPoint } from "@/types/catalog";
 import { MetricCard } from "@/components/MetricCard";
 import { SegmentBreakdown as SegmentBreakdownPanel } from "@/components/SegmentBreakdown";
@@ -7,9 +8,18 @@ type DashboardPreviewProps = {
   metrics: DashboardMetric[];
   segments: SegmentBreakdown[];
   trend: TrendPoint[];
+  copy: {
+    scenarioEyebrow: string;
+    scenarioTitle: string;
+    scenarioDescription: string;
+    scenarioItems: { label: string; detail: string }[];
+  };
+  segmentCopy: ComponentProps<typeof SegmentBreakdownPanel>["copy"];
+  trendCopy: ComponentProps<typeof TrendPreview>["copy"];
+  statusLabels: ComponentProps<typeof SegmentBreakdownPanel>["statusLabels"];
 };
 
-export function DashboardPreview({ metrics, segments, trend }: DashboardPreviewProps) {
+export function DashboardPreview({ metrics, segments, trend, copy, segmentCopy, trendCopy, statusLabels }: DashboardPreviewProps) {
   return (
     <div className="dashboard-preview">
       <div className="metric-grid">
@@ -19,27 +29,20 @@ export function DashboardPreview({ metrics, segments, trend }: DashboardPreviewP
       </div>
       <div className="dashboard-preview__body">
         <article className="scenario-panel">
-          <p className="section-eyebrow">Data-rich dashboard scenario</p>
-          <h3>Pipeline health review</h3>
-          <p>
-            A static, public-safe scenario that combines account segment signals, operational efficiency,
-            activation signals, and a review queue into one decision surface.
-          </p>
+          <p className="section-eyebrow">{copy.scenarioEyebrow}</p>
+          <h3>{copy.scenarioTitle}</h3>
+          <p>{copy.scenarioDescription}</p>
           <ul className="scenario-list">
-            <li>
-              <strong>Typed boundary:</strong> sample records are imported from TypeScript data.
-            </li>
-            <li>
-              <strong>Quality signal:</strong> status is expressed with text and color, never color alone.
-            </li>
-            <li>
-              <strong>Future-ready:</strong> deeper table and analytics behavior is intentionally deferred.
-            </li>
+            {copy.scenarioItems.map((item) => (
+              <li key={item.label}>
+                <strong>{item.label}:</strong> {item.detail}
+              </li>
+            ))}
           </ul>
         </article>
-        <SegmentBreakdownPanel segments={segments} />
+        <SegmentBreakdownPanel segments={segments} copy={segmentCopy} statusLabels={statusLabels} />
       </div>
-      <TrendPreview points={trend} />
+      <TrendPreview points={trend} copy={trendCopy} />
     </div>
   );
 }

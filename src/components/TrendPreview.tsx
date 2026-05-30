@@ -3,25 +3,44 @@ import { buildSparklinePath, formatPercent, getTrendSummary } from "@/lib/analyt
 
 type TrendPreviewProps = {
   points: TrendPoint[];
+  copy: {
+    title: string;
+    description: string;
+    metaTitle: string;
+    svgTitle: string;
+    latestUp: (latest: string, delta: number) => string;
+    latestDown: (latest: string, delta: number) => string;
+    latestSteady: (latest: string) => string;
+    insightTitle: string;
+    insightSentence: (direction: "up" | "down" | "steady", delta: number, peak: string, peakLabel: string) => string;
+    lightweightNote: string;
+    barsLabel: string;
+  };
 };
 
-export function TrendPreview({ points }: TrendPreviewProps) {
+export function TrendPreview({ points, copy }: TrendPreviewProps) {
   const max = Math.max(...points.map((point) => point.value));
   const min = Math.min(...points.map((point) => point.value));
   const path = buildSparklinePath(points);
   const summary = getTrendSummary(points);
+  const summarySentence =
+    summary.direction === "up"
+      ? copy.latestUp(formatPercent(summary.latest.value), Math.abs(summary.delta))
+      : summary.direction === "down"
+        ? copy.latestDown(formatPercent(summary.latest.value), Math.abs(summary.delta))
+        : copy.latestSteady(formatPercent(summary.latest.value));
 
   return (
     <div className="trend-preview" aria-labelledby="trend-preview-title">
       <div className="trend-preview__header">
-        <h3 id="trend-preview-title">Analytics visual preview</h3>
-        <p>Dependency-free SVG trend and list-backed values so the visual is meaningful without a chart library.</p>
+        <h3 id="trend-preview-title">{copy.title}</h3>
+        <p>{copy.description}</p>
       </div>
       <div className="sparkline-panel">
         <div className="sparkline-panel__meta">
-          <p id="sparkline-title">Workflow quality trend</p>
+          <p id="sparkline-title">{copy.metaTitle}</p>
           <strong>{formatPercent(summary.latest.value)}</strong>
-          <span id="sparkline-summary">{summary.sentence}</span>
+          <span id="sparkline-summary">{summarySentence}</span>
         </div>
         <svg
           viewBox="0 0 360 140"
@@ -29,9 +48,9 @@ export function TrendPreview({ points }: TrendPreviewProps) {
           aria-labelledby="sparkline-svg-title sparkline-svg-desc"
           focusable="false"
         >
-          <title id="sparkline-svg-title">Workflow quality trend sparkline</title>
+          <title id="sparkline-svg-title">{copy.svgTitle}</title>
           <desc id="sparkline-svg-desc">
-            {summary.sentence} Latest value is {formatPercent(summary.latest.value)}.
+            {summarySentence}
           </desc>
           <line x1="14" y1="126" x2="346" y2="126" className="sparkline-axis" />
           <line x1="14" y1="14" x2="14" y2="126" className="sparkline-axis" />
@@ -62,15 +81,11 @@ export function TrendPreview({ points }: TrendPreviewProps) {
         </svg>
       </div>
       <div className="insight-summary">
-        <h4>Insight summary</h4>
-        <p>
-          The sample trend moves {summary.direction === "up" ? "upward" : summary.direction} by{" "}
-          {Math.abs(summary.delta)} points from first to latest period. Peak sample value is{" "}
-          {formatPercent(summary.peak.value)} in {summary.peak.label}.
-        </p>
-        <p>This is a lightweight implementation, not a full charting system.</p>
+        <h4>{copy.insightTitle}</h4>
+        <p>{copy.insightSentence(summary.direction, summary.delta, formatPercent(summary.peak.value), summary.peak.label)}</p>
+        <p>{copy.lightweightNote}</p>
       </div>
-      <ul className="trend-bars" aria-label="Workflow quality trend by week">
+      <ul className="trend-bars" aria-label={copy.barsLabel}>
         {points.map((point) => (
           <li key={point.id}>
             <span className="trend-bars__label">{point.label}</span>

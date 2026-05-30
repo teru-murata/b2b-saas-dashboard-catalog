@@ -1,164 +1,160 @@
+"use client";
+
+import { useState } from "react";
 import { DashboardPreview } from "@/components/DashboardPreview";
 import { DataTablePreview } from "@/components/DataTablePreview";
 import { DeliveryTimeline } from "@/components/DeliveryTimeline";
 import { EvidenceCard } from "@/components/EvidenceCard";
 import { ImplementationNote } from "@/components/ImplementationNote";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { QualityGateList } from "@/components/QualityGateList";
 import { Section } from "@/components/Section";
-import {
-  dashboardMetrics,
-  deliveryMilestones,
-  evidenceCards,
-  qualityGates,
-  segmentBreakdown,
-  tableRecords,
-  trendPoints
-} from "@/data/catalog";
+import { localeOptions, localizedCopy } from "@/data/localizedCopy";
+import { defaultLocale, type Locale } from "@/types/locale";
 import styles from "./page.module.css";
 
-const navItems = [
-  { href: "#overview", label: "Overview" },
-  { href: "#dashboard", label: "Dashboard" },
-  { href: "#table", label: "Table" },
-  { href: "#quality", label: "Quality" },
-  { href: "#delivery", label: "Delivery" }
-];
-
 export default function Home() {
+  const [locale, setLocale] = useState<Locale>(defaultLocale);
+  const copy = localizedCopy[locale];
+
   return (
     <>
       <a className="skip-link" href="#main">
-        Skip to content
+        {copy.skipLink}
       </a>
       <header className={styles.header}>
-        <nav aria-label="Catalog sections" className={styles.nav}>
+        <nav aria-label={copy.navLabel} className={styles.nav}>
           <a className={styles.brand} href="#overview">
-            BtoB SaaS frontend catalog
+            {copy.brand}
           </a>
           <div className={styles.navLinks}>
-            {navItems.map((item) => (
+            {copy.navItems.map((item) => (
               <a key={item.href} href={item.href}>
                 {item.label}
               </a>
             ))}
           </div>
+          <LanguageSwitch
+            activeLocale={locale}
+            label={copy.languageSwitch.label}
+            optionLabel={copy.languageSwitch.optionLabel}
+            options={localeOptions}
+            onChange={setLocale}
+          />
         </nav>
       </header>
       <main id="main" className={styles.main}>
         <section id="overview" className={styles.hero} aria-labelledby="hero-title">
           <div className={styles.heroContent}>
-            <p className="section-eyebrow">Public presentation-ready catalog</p>
-            <h1 id="hero-title">
-              React / Next.js / TypeScript frontend catalog for BtoB SaaS analytics dashboards.
-            </h1>
-            <p>
-              An evidence-driven frontend showcase for data-rich UI, reusable components, typed data
-              boundaries, accessibility, performance-minded rendering, testable delivery, and a remote
-              GitHub-style workflow.
-            </p>
+            <p className="section-eyebrow">{copy.hero.eyebrow}</p>
+            <h1 id="hero-title">{copy.hero.title}</h1>
+            <p>{copy.hero.description}</p>
             <div className={styles.heroActions} aria-label="Primary sections">
-              <a href="#dashboard">View dashboard preview</a>
-              <a href="#table">Inspect table preview</a>
+              {copy.hero.actions.map((action) => (
+                <a key={action.href} href={action.href}>
+                  {action.label}
+                </a>
+              ))}
             </div>
           </div>
-          <aside className={styles.heroPanel} aria-label="Phase 3 evidence summary">
-            <h2>Phase 3 status</h2>
+          <aside className={styles.heroPanel} aria-label={copy.hero.panelLabel}>
+            <h2>{copy.hero.panelTitle}</h2>
             <dl>
-              <div>
-                <dt>Runnable app</dt>
-                <dd>Demonstrated</dd>
-              </div>
-              <div>
-                <dt>Typed sample data</dt>
-                <dd>Demonstrated</dd>
-              </div>
-              <div>
-                <dt>Lint, test, build</dt>
-                <dd>Verified before commit</dd>
-              </div>
+              {copy.hero.panelItems.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
             </dl>
           </aside>
         </section>
 
         <Section
           id="evidence"
-          eyebrow="Evidence model"
-          title="Engineering-lead-friendly proof, without private context"
-          description="Each card separates what exists now from what later phases can improve."
+          eyebrow={copy.sections.evidence.eyebrow}
+          title={copy.sections.evidence.title}
+          description={copy.sections.evidence.description}
           className={styles.section}
         >
           <div className={styles.evidenceGrid}>
-            {evidenceCards.map((item) => (
-              <EvidenceCard key={item.id} item={item} />
+            {copy.evidenceCards.map((item) => (
+              <EvidenceCard
+                key={item.id}
+                item={item}
+                labels={copy.evidenceLabels}
+                statusLabel={copy.statusLabels[item.status]}
+              />
             ))}
           </div>
         </Section>
 
         <Section
           id="dashboard"
-          eyebrow="Dashboard preview"
-          title="Data-rich dashboard scenario"
-          description="Static sample data shows how summary metrics, segment signals, and trend context can fit into one readable surface."
+          eyebrow={copy.sections.dashboard.eyebrow}
+          title={copy.sections.dashboard.title}
+          description={copy.sections.dashboard.description}
           className={styles.section}
         >
-          <DashboardPreview metrics={dashboardMetrics} segments={segmentBreakdown} trend={trendPoints} />
+          <DashboardPreview
+            metrics={copy.dashboardMetrics}
+            segments={copy.segmentBreakdown}
+            trend={copy.trendPoints}
+            copy={copy.sections.dashboard}
+            segmentCopy={copy.segment}
+            trendCopy={copy.trend}
+            statusLabels={copy.statusLabels}
+          />
         </Section>
 
         <Section
           id="table"
-          eyebrow="Data interaction"
-          title="Data table preview"
-          description="A semantic table with typed sample records, search, segment/status filters, accessible sorting, result count, and empty state."
+          eyebrow={copy.sections.table.eyebrow}
+          title={copy.sections.table.title}
+          description={copy.sections.table.description}
           className={styles.section}
         >
-          <DataTablePreview rows={tableRecords} />
+          <DataTablePreview key={locale} rows={copy.tableRecords} copy={copy.table} statusLabels={copy.statusLabels} />
         </Section>
 
         <Section
           id="quality"
-          eyebrow="Quality evidence"
-          title="Quality-oriented delivery"
-          description="This phase verifies lint, unit tests, typecheck, and build while keeping E2E and visual review clearly deferred."
+          eyebrow={copy.sections.quality.eyebrow}
+          title={copy.sections.quality.title}
+          description={copy.sections.quality.description}
           className={styles.section}
         >
-          <QualityGateList gates={qualityGates} />
+          <QualityGateList gates={copy.qualityGates} statusLabels={copy.statusLabels} />
         </Section>
 
         <Section
           id="delivery"
-          eyebrow="Delivery notes"
-          title="Public-safe GitHub-style workflow"
-          description="The catalog is structured for small reviewable phases, sanitized summaries, and raw artifact hygiene."
+          eyebrow={copy.sections.delivery.eyebrow}
+          title={copy.sections.delivery.title}
+          description={copy.sections.delivery.description}
           className={styles.section}
         >
-          <DeliveryTimeline milestones={deliveryMilestones} />
+          <DeliveryTimeline milestones={copy.deliveryMilestones} statusLabels={copy.statusLabels} />
         </Section>
 
         <Section
           id="implementation"
-          eyebrow="Implementation notes"
-          title="Current scope and intentional limits"
-          description="The initial app is useful enough for a first public review while keeping later work clearly labeled."
+          eyebrow={copy.sections.implementation.eyebrow}
+          title={copy.sections.implementation.title}
+          description={copy.sections.implementation.description}
           className={styles.section}
         >
           <div className={styles.noteGrid}>
-            <ImplementationNote title="Static data only">
-              Sample data is artificial and local. There is no backend, no external API data, and no real
-              customer data.
-            </ImplementationNote>
-            <ImplementationNote title="No chart or table libraries yet">
-              The visual preview and table behavior are dependency-free. The table and analytics derivations are
-              implemented with typed utilities instead of chart or table libraries.
-            </ImplementationNote>
-            <ImplementationNote title="Deferred review depth">
-              Unit tests exist for transformation logic. E2E, browser accessibility checks, and visual review are
-              deferred until the next review phase.
-            </ImplementationNote>
+            {copy.implementationNotes.map((note) => (
+              <ImplementationNote key={note.title} title={note.title}>
+                {note.body}
+              </ImplementationNote>
+            ))}
           </div>
         </Section>
       </main>
       <footer className={styles.footer}>
-        <p>BtoB SaaS frontend catalog. Public-safe sample data only.</p>
+        <p>{copy.footer}</p>
       </footer>
     </>
   );

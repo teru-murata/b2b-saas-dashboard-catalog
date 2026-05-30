@@ -15,6 +15,7 @@ export type EvidenceCard = {
   id: string;
   title: string;
   category: EvidenceCategory;
+  categoryLabel?: string;
   status: EvidenceStatus;
   demonstrates: string;
   matters: string;

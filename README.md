@@ -15,7 +15,7 @@ React / Next.js / TypeScript frontend catalog for BtoB SaaS analytics dashboards
 
 ## Current Status
 
-Phase 4.5 establishes a reviewed public catalog surface. The table includes search, filters, accessible sorting, empty state, result counts, visible sort affordances, and a mobile scroll cue. The analytics visual derives a meaningful trend from static sample data without chart libraries and has passed review-only visual QA. E2E tests, deployment, and deeper performance measurement remain deferred.
+Phase 5B adds a Japanese presentation mode while preserving the reviewed public catalog surface. Japanese is the default presentation language, and English remains available through the in-page language switch. The table includes search, filters, accessible sorting, empty state, result counts, visible sort affordances, and a mobile scroll cue. The analytics visual derives a meaningful trend from static sample data without chart libraries and has passed review-only visual QA. E2E tests, deployment, and deeper performance measurement remain deferred.
 
 ## Local Setup
 
@@ -38,9 +38,9 @@ npm run dev
 
 - `src/app/` contains the App Router entry, global CSS, and page-level CSS module.
 - `src/components/` contains reusable UI components such as sections, evidence cards, metric cards, dashboard preview, data table preview, trend preview, quality gates, and delivery timeline.
-- `src/data/` contains public-safe static sample data.
+- `src/data/` contains public-safe localized copy and static sample data.
 - `src/lib/` contains pure TypeScript transformation utilities for table filtering/sorting and analytics derivation.
-- `src/types/` contains the TypeScript data model for catalog evidence, metrics, table rows, trend points, quality gates, and delivery milestones.
+- `src/types/` contains the TypeScript data model for catalog evidence, metrics, table rows, trend points, quality gates, delivery milestones, and locale selection.
 - `docs/` contains public-safe planning and build notes.
 
 ## Public-Safe Data Policy
@@ -61,6 +61,7 @@ npm run build
 Current implemented evidence:
 
 - Table search, segment filter, status filter, sortable columns, result count, and empty state.
+- Japanese default presentation mode with an English language switch.
 - Inline SVG analytics trend with value labels, adjacent text summary, and tested derivation logic.
 - Review-only visual QA accepted the current visual, responsive, accessibility, and public-safe presentation state.
 - Unit tests for table model and analytics model utilities.
