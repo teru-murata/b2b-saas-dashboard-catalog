@@ -15,7 +15,7 @@ React / Next.js / TypeScript frontend catalog for BtoB SaaS analytics dashboards
 
 ## Current Status
 
-Phase 3 establishes a practical public catalog surface. The table is interactive enough to evaluate search, filters, sorting, empty state, and result counts. The analytics visual now derives a meaningful trend from static sample data without chart libraries. Visual QA, E2E tests, deployment, and deeper performance measurement remain deferred.
+Phase 4.5 establishes a reviewed public catalog surface. The table includes search, filters, accessible sorting, empty state, result counts, visible sort affordances, and a mobile scroll cue. The analytics visual derives a meaningful trend from static sample data without chart libraries and has passed review-only visual QA. E2E tests, deployment, and deeper performance measurement remain deferred.
 
 ## Local Setup
 
@@ -49,7 +49,7 @@ All data is artificial and generic. The project does not include real customer d
 
 ## Quality Checks
 
-Phase 3 is complete when these commands pass:
+The current release candidate is expected to pass:
 
 ```sh
 npm run lint
@@ -62,13 +62,13 @@ Current implemented evidence:
 
 - Table search, segment filter, status filter, sortable columns, result count, and empty state.
 - Inline SVG analytics trend with value labels, adjacent text summary, and tested derivation logic.
+- Review-only visual QA accepted the current visual, responsive, accessibility, and public-safe presentation state.
 - Unit tests for table model and analytics model utilities.
 - No chart library, table library, UI kit, backend, live API, or real customer data.
 
 Still deferred:
 
 - E2E tests.
-- Browser visual review.
 - Deployment.
 - Full accessibility certification.
 - Complete performance measurement.
