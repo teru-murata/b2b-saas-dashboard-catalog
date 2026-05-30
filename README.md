@@ -42,3 +42,4 @@ Not done yet: E2E tests, deployment, and proper performance measurement.
 ```sh
 npm install
 npm run dev
+```
