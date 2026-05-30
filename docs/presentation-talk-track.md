@@ -34,8 +34,8 @@ Emphasize the part that matches the audience: dashboard hierarchy for product le
 
 ## Things Not to Say in the Public Repo or Public Demo
 
-- Do not say the catalog was built for a named organization.
-- Do not reference private planning, source snapshots, private review outputs, or copied requirements.
+- Do not say the catalog was created for a named organization.
+- Do not reference non-public planning, non-public source material, non-public review outputs, or copied requirements.
 - Do not imply real customer data or production usage.
 - Do not claim implemented tests, charts, or performance evidence before they exist.
 - Do not mention secrets, credentials, private assets, or local runtime details.

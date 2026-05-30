@@ -18,7 +18,7 @@ Engineering leads, product managers, designers, and collaborators who want to ev
 
 ## What the Catalog Intentionally Does Not Disclose
 
-- Named business targets or private planning context.
+- Named organizations or non-public context.
 - Job-specific source material.
 - Private review notes, raw model output, or unpublished strategy.
 - Real customer data, private assets, secrets, or credentials.

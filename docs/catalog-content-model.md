@@ -87,14 +87,14 @@ type CatalogEvidence = {
 - Use "demonstrated" only after UI or code exists.
 - Use "verified" only after checks or review evidence exists.
 - Keep claims tied to repo evidence.
-- Avoid references to private planning, named targets, real customers, or private assets.
+- Avoid references to non-public context, named organizations, real customers, or private assets.
 
 ## Acceptance Criteria
 
 Overview:
 - States the positioning clearly.
 - Shows what evidence is planned, demonstrated, or verified.
-- Does not disclose private planning context.
+- Does not disclose non-public context.
 
 Dashboard Demo:
 - Shows summary metrics, business-data hierarchy, and state handling.
@@ -126,4 +126,4 @@ Implementation Notes:
 
 ## What Not to Disclose
 
-- Named targets, private review outputs, private planning docs, source snapshots, copied requirements, real customer data, credentials, raw prompts, raw transcripts, raw logs, screenshots, recordings, browser traces, and unnecessary local paths.
+- Named organizations, non-public review outputs, non-public strategy docs, copied requirements, real customer data, credentials, raw prompts, raw transcripts, raw logs, screenshots, recordings, browser traces, and unnecessary local paths.
