@@ -39,12 +39,14 @@ a {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
 button:focus-visible,
 input:focus-visible,
+select:focus-visible,
 a:focus-visible {
   outline: 3px solid #1aa087;
   outline-offset: 3px;
@@ -250,6 +252,107 @@ a:focus-visible {
   padding: 0.85rem 0;
 }
 
+.segment-panel__label {
+  display: grid;
+  gap: 0.12rem;
+  min-inline-size: 130px;
+}
+
+.segment-panel__bar {
+  display: block;
+  overflow: hidden;
+  flex: 1;
+  min-inline-size: 120px;
+  block-size: 0.68rem;
+  border-radius: 999px;
+  background: var(--surface-muted);
+}
+
+.segment-panel__bar span {
+  display: block;
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.sparkline-panel {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.6fr) minmax(280px, 1fr);
+  gap: 1rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfdfd;
+  padding: 1rem;
+  margin-block-start: 1rem;
+}
+
+.sparkline-panel__meta {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sparkline-panel__meta p,
+.sparkline-panel__meta span {
+  margin: 0;
+  color: var(--muted);
+}
+
+.sparkline-panel__meta strong {
+  font-size: 2.15rem;
+  line-height: 1;
+}
+
+.sparkline-panel svg {
+  inline-size: 100%;
+  min-block-size: 160px;
+}
+
+.sparkline-axis {
+  stroke: #b8c7c4;
+  stroke-width: 1;
+}
+
+.sparkline-path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.sparkline-point {
+  fill: var(--surface);
+  stroke: var(--accent-strong);
+  stroke-width: 2;
+}
+
+.sparkline-label {
+  fill: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.sparkline-label--tick {
+  text-anchor: middle;
+}
+
+.insight-summary {
+  border-inline-start: 4px solid var(--accent);
+  margin-block-start: 1rem;
+  padding-inline-start: 1rem;
+}
+
+.insight-summary h4 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.insight-summary p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
 .trend-bars {
   display: grid;
   gap: 0.85rem;
@@ -306,7 +409,8 @@ a:focus-visible {
   font-weight: 700;
 }
 
-.table-toolbar input {
+.table-toolbar input,
+.table-toolbar select {
   min-inline-size: min(320px, 78vw);
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -322,6 +426,40 @@ a:focus-visible {
   padding: 0.72rem 0.9rem;
   font-weight: 800;
   cursor: pointer;
+}
+
+.result-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 0.85rem 1rem;
+}
+
+.result-summary p {
+  margin: 0;
+}
+
+.result-summary ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result-summary li,
+.active-filters {
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--muted);
+  padding: 0.25rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 750;
 }
 
 .table-scroll {
@@ -358,8 +496,35 @@ thead th {
   text-transform: uppercase;
 }
 
+.table-sort-button {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  font-weight: 850;
+  text-align: start;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
 tbody th {
   font-weight: 800;
+}
+
+.table-empty-state {
+  display: grid;
+  gap: 0.25rem;
+  min-block-size: 5rem;
+  place-items: center;
+  color: var(--muted);
+  text-align: center;
+}
+
+.table-empty-state strong {
+  color: var(--text);
 }
 
 .delivery-timeline {
@@ -402,6 +567,10 @@ tbody th {
   .trend-bars__note {
     grid-column: 2 / -1;
   }
+
+  .sparkline-panel {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -417,5 +586,21 @@ tbody th {
   .delivery-timeline li {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .segment-panel__bar {
+    inline-size: 100%;
+  }
+
+  .table-toolbar,
+  .result-summary {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .table-toolbar input,
+  .table-toolbar select,
+  .table-toolbar button {
+    inline-size: 100%;
   }
 }

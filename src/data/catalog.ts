@@ -17,27 +17,27 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Summary cards, scenario context, segment breakdowns, trend preview, and workflow signals.",
     matters: "BtoB SaaS teams need dense data to become readable decisions quickly.",
     phaseEvidence: "This phase ships a static dashboard preview backed by typed sample data.",
-    expandsLater: "Phase 3 can add deeper table behavior and richer chart interactions."
+    expandsLater: "Later phases can add measured performance evidence after the interaction model grows."
   },
   {
     id: "table-interaction",
     title: "Data table interaction",
     category: "data_table",
     status: "demonstrated",
-    demonstrates: "Semantic table markup, typed records, status labels, filtering, and a sort toggle.",
+    demonstrates: "Semantic table markup, typed records, status labels, search, segment/status filters, sorting, result counts, and empty states.",
     matters: "Table-first workflows are common in analytics and operations tools.",
-    phaseEvidence: "This phase includes a client-side filter and confidence sort without a table library.",
-    expandsLater: "Phase 3 can add column-level sorting, density controls, pagination, and keyboard refinements."
+    phaseEvidence: "This phase includes client-side table controls backed by tested pure TypeScript utilities.",
+    expandsLater: "Later phases can add density controls, pagination, and browser-based interaction review."
   },
   {
     id: "analytics-visual",
     title: "Analytics visualization",
     category: "analytics_visualization",
     status: "demonstrated",
-    demonstrates: "A lightweight trend visual that is backed by text and does not rely on color alone.",
+    demonstrates: "A lightweight SVG trend visual, compact segment bars, value labels, and text insight summary.",
     matters: "Visual summaries help teams spot direction and variance without hiding the underlying data.",
-    phaseEvidence: "This phase uses dependency-free CSS bars and adjacent text.",
-    expandsLater: "Phase 3 can replace the preview with a more persuasive charting pattern."
+    phaseEvidence: "This phase uses dependency-free SVG/CSS visuals backed by tested trend derivation logic.",
+    expandsLater: "Later phases can add richer chart affordances after visual QA."
   },
   {
     id: "components",
@@ -57,7 +57,7 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Explicit TypeScript types for evidence, metrics, trends, table rows, gates, and milestones.",
     matters: "Typed contracts make UI assumptions visible before integration work begins.",
     phaseEvidence: "Static sample data is imported through typed structures.",
-    expandsLater: "Later phases can add transform tests and more realistic data-volume constraints."
+    expandsLater: "Later phases can add larger sample volumes and measured rendering evidence."
   },
   {
     id: "accessibility",
@@ -67,7 +67,7 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Skip link, landmarks, one H1, semantic table markup, visible focus, and text-backed status.",
     matters: "Accessible structure improves enterprise review quality and day-to-day usability.",
     phaseEvidence: "This phase establishes semantic structure and keyboard-friendly controls.",
-    expandsLater: "Later phases can add browser-based accessibility checks."
+    expandsLater: "Later phases can add browser-based accessibility checks and visual QA."
   },
   {
     id: "performance",
@@ -76,18 +76,18 @@ export const evidenceCards: EvidenceCard[] = [
     status: "planned",
     demonstrates: "Static rendering, small data sets, dependency restraint, and table/chart scope control.",
     matters: "Dashboard UI can become slow when visuals and tables grow without boundaries.",
-    phaseEvidence: "This phase avoids chart and table libraries and keeps all data local.",
-    expandsLater: "Phase 3 can add measured table and visual rendering checks."
+    phaseEvidence: "This phase avoids chart and table libraries, derives visuals locally, and keeps all data static.",
+    expandsLater: "Later phases can add measured table and visual rendering checks."
   },
   {
     id: "testing",
     title: "Testable delivery",
     category: "testing",
     status: "verified",
-    demonstrates: "Lint and production build scripts are part of the repository contract.",
+    demonstrates: "Lint, unit tests, typecheck, and production build scripts are part of the repository contract.",
     matters: "Engineering leads need lightweight proof that the app can be checked locally.",
-    phaseEvidence: "This phase records lint and build results in public-safe build notes.",
-    expandsLater: "Later phases can add focused unit tests and browser review."
+    phaseEvidence: "This phase records lint, test, typecheck, build, and audit results in public-safe build notes.",
+    expandsLater: "Later phases can add browser review and visual QA."
   },
   {
     id: "delivery",
@@ -205,6 +205,33 @@ export const tableRecords: TableRecord[] = [
     confidence: 58,
     status: "Watch",
     lastReviewed: "2026-05-24"
+  },
+  {
+    id: "seg-regional",
+    accountSegment: "Regional",
+    signal: "Pipeline health",
+    ownerWorkflow: "Renewal readiness",
+    confidence: 73,
+    status: "Ready",
+    lastReviewed: "2026-05-25"
+  },
+  {
+    id: "seg-platform",
+    accountSegment: "Platform",
+    signal: "Workflow quality",
+    ownerWorkflow: "Exception review",
+    confidence: 64,
+    status: "Review",
+    lastReviewed: "2026-05-26"
+  },
+  {
+    id: "seg-operations",
+    accountSegment: "Operations",
+    signal: "Operational efficiency",
+    ownerWorkflow: "SLA review",
+    confidence: 81,
+    status: "Ready",
+    lastReviewed: "2026-05-27"
   }
 ];
 
@@ -219,13 +246,25 @@ export const qualityGates: QualityGate[] = [
     id: "lint",
     label: "Lint verification",
     status: "verified",
-    detail: "This phase is designed to pass npm run lint before commit."
+    detail: "Verified with npm run lint before commit."
+  },
+  {
+    id: "test",
+    label: "Unit tests for transforms",
+    status: "verified",
+    detail: "Verified with npm run test for table and analytics model utilities."
+  },
+  {
+    id: "typecheck",
+    label: "Typecheck",
+    status: "verified",
+    detail: "Verified with npm run typecheck before commit."
   },
   {
     id: "build",
     label: "Production build",
     status: "verified",
-    detail: "This phase is designed to pass npm run build before commit."
+    detail: "Verified with npm run build before commit."
   },
   {
     id: "semantic-html",
@@ -235,9 +274,9 @@ export const qualityGates: QualityGate[] = [
   },
   {
     id: "future-tests",
-    label: "Focused tests",
+    label: "Browser and visual review",
     status: "planned",
-    detail: "Later phases can add unit tests for table transforms and browser checks for critical flows."
+    detail: "E2E, browser accessibility checks, and visual QA are deferred to later phases."
   }
 ];
 
@@ -252,7 +291,7 @@ export const deliveryMilestones: DeliveryMilestone[] = [
     id: "small-phases",
     label: "Small implementation phases",
     status: "demonstrated",
-    detail: "Phase 2 delivers a reviewable app while deferring deeper table and visual work."
+    detail: "Phase 3 strengthens table utility, analytics visualization, and tested transformation logic."
   },
   {
     id: "artifact-hygiene",
@@ -262,8 +301,8 @@ export const deliveryMilestones: DeliveryMilestone[] = [
   },
   {
     id: "phase-three",
-    label: "Phase 3 direction",
+    label: "Phase 3.5 direction",
     status: "planned",
-    detail: "Next work should improve data table utility and strengthen analytics visualization."
+    detail: "Next work should perform review-only visual QA after the enhanced screens are available."
   }
 ];

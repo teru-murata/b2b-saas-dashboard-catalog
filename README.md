@@ -6,16 +6,16 @@ React / Next.js / TypeScript frontend catalog for BtoB SaaS analytics dashboards
 
 - Public presentation-ready catalog structure.
 - Dashboard preview with typed static sample data.
-- Data table preview with semantic markup, filtering, sorting, and status labels.
-- Lightweight analytics visual without chart dependencies.
+- Data table preview with semantic markup, search, filters, accessible sorting, result counts, empty state, and status labels.
+- Lightweight analytics visual with inline SVG, segment bars, text summary, and no chart dependency.
 - Evidence cards that distinguish demonstrated, verified, and planned work.
 - Reusable React components assembled into a serious frontend showcase.
 - Accessibility-minded structure with skip link, landmarks, headings, focus styles, and table semantics.
-- Quality-oriented delivery through lint and production build scripts.
+- Quality-oriented delivery through lint, unit tests, typecheck, and production build scripts.
 
 ## Current Status
 
-Phase 2 establishes a runnable initial catalog. It is intentionally useful for first review, while deeper data table utility and stronger analytics visualization are deferred to Phase 3.
+Phase 3 establishes a practical public catalog surface. The table is interactive enough to evaluate search, filters, sorting, empty state, and result counts. The analytics visual now derives a meaningful trend from static sample data without chart libraries. Visual QA, E2E tests, deployment, and deeper performance measurement remain deferred.
 
 ## Local Setup
 
@@ -28,6 +28,8 @@ npm run dev
 
 ```sh
 npm run lint
+npm run test
+npm run typecheck
 npm run build
 npm run dev
 ```
@@ -37,6 +39,7 @@ npm run dev
 - `src/app/` contains the App Router entry, global CSS, and page-level CSS module.
 - `src/components/` contains reusable UI components such as sections, evidence cards, metric cards, dashboard preview, data table preview, trend preview, quality gates, and delivery timeline.
 - `src/data/` contains public-safe static sample data.
+- `src/lib/` contains pure TypeScript transformation utilities for table filtering/sorting and analytics derivation.
 - `src/types/` contains the TypeScript data model for catalog evidence, metrics, table rows, trend points, quality gates, and delivery milestones.
 - `docs/` contains public-safe planning and build notes.
 
@@ -46,17 +49,34 @@ All data is artificial and generic. The project does not include real customer d
 
 ## Quality Checks
 
-Phase 2 is complete when these commands pass:
+Phase 3 is complete when these commands pass:
 
 ```sh
 npm run lint
+npm run test
+npm run typecheck
 npm run build
 ```
 
+Current implemented evidence:
+
+- Table search, segment filter, status filter, sortable columns, result count, and empty state.
+- Inline SVG analytics trend with value labels, adjacent text summary, and tested derivation logic.
+- Unit tests for table model and analytics model utilities.
+- No chart library, table library, UI kit, backend, live API, or real customer data.
+
+Still deferred:
+
+- E2E tests.
+- Browser visual review.
+- Deployment.
+- Full accessibility certification.
+- Complete performance measurement.
+
 ## Roadmap
 
-- Phase 3: strengthen data table utility and analytics visualization credibility.
-- Later: add focused unit tests, browser review, visual review, and measured performance evidence when the interaction surface justifies it.
+- Phase 3.5: review-only visual QA for responsive layout, visual hierarchy, and accessibility observations.
+- Later: add focused browser checks and measured performance evidence when the interaction surface justifies it.
 
 ## Intentionally Not Included
 

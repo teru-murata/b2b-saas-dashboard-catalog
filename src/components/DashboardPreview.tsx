@@ -1,6 +1,6 @@
 import type { DashboardMetric, SegmentBreakdown, TrendPoint } from "@/types/catalog";
 import { MetricCard } from "@/components/MetricCard";
-import { StatusPill } from "@/components/Badge";
+import { SegmentBreakdown as SegmentBreakdownPanel } from "@/components/SegmentBreakdown";
 import { TrendPreview } from "@/components/TrendPreview";
 
 type DashboardPreviewProps = {
@@ -37,18 +37,7 @@ export function DashboardPreview({ metrics, segments, trend }: DashboardPreviewP
             </li>
           </ul>
         </article>
-        <article className="segment-panel">
-          <h3>Segment breakdown</h3>
-          <ul>
-            {segments.map((segment) => (
-              <li key={segment.id}>
-                <span>{segment.label}</span>
-                <strong>{segment.value}%</strong>
-                <StatusPill status={segment.status === "healthy" ? "Ready" : segment.status === "watch" ? "Watch" : "planned"} />
-              </li>
-            ))}
-          </ul>
-        </article>
+        <SegmentBreakdownPanel segments={segments} />
       </div>
       <TrendPreview points={trend} />
     </div>

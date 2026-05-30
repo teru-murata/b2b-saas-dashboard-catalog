@@ -55,6 +55,21 @@ export type TableRecord = {
   lastReviewed: string;
 };
 
+export type TableSortKey = "accountSegment" | "confidence" | "lastReviewed" | "signal";
+
+export type SortDirection = "asc" | "desc";
+
+export type TableFilters = {
+  search: string;
+  segment: string;
+  status: string;
+};
+
+export type TableSort = {
+  key: TableSortKey;
+  direction: SortDirection;
+};
+
 export type QualityGate = {
   id: string;
   label: string;

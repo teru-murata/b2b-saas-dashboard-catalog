@@ -61,8 +61,8 @@ export default function Home() {
               <a href="#table">Inspect table preview</a>
             </div>
           </div>
-          <aside className={styles.heroPanel} aria-label="Phase 2 evidence summary">
-            <h2>Phase 2 status</h2>
+          <aside className={styles.heroPanel} aria-label="Phase 3 evidence summary">
+            <h2>Phase 3 status</h2>
             <dl>
               <div>
                 <dt>Runnable app</dt>
@@ -73,7 +73,7 @@ export default function Home() {
                 <dd>Demonstrated</dd>
               </div>
               <div>
-                <dt>Lint and build</dt>
+                <dt>Lint, test, build</dt>
                 <dd>Verified before commit</dd>
               </div>
             </dl>
@@ -108,7 +108,7 @@ export default function Home() {
           id="table"
           eyebrow="Data interaction"
           title="Data table preview"
-          description="A semantic table with typed sample records, status text, a small filter, and confidence sorting."
+          description="A semantic table with typed sample records, search, segment/status filters, accessible sorting, result count, and empty state."
           className={styles.section}
         >
           <DataTablePreview rows={tableRecords} />
@@ -118,7 +118,7 @@ export default function Home() {
           id="quality"
           eyebrow="Quality evidence"
           title="Quality-oriented delivery"
-          description="This phase establishes visible quality gates and marks future checks as planned rather than complete."
+          description="This phase verifies lint, unit tests, typecheck, and build while keeping E2E and visual review clearly deferred."
           className={styles.section}
         >
           <QualityGateList gates={qualityGates} />
@@ -147,12 +147,12 @@ export default function Home() {
               customer data.
             </ImplementationNote>
             <ImplementationNote title="No chart or table libraries yet">
-              The visual preview and table behavior are dependency-free. Phase 3 can strengthen both where it
-              adds clear evidence.
+              The visual preview and table behavior are dependency-free. The table and analytics derivations are
+              implemented with typed utilities instead of chart or table libraries.
             </ImplementationNote>
             <ImplementationNote title="Deferred review depth">
-              Unit tests, browser review, and visual review are planned for later phases after the interaction
-              surface is stronger.
+              Unit tests exist for transformation logic. E2E, browser accessibility checks, and visual review are
+              deferred until the next review phase.
             </ImplementationNote>
           </div>
         </Section>

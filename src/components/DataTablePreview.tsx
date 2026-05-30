@@ -1,49 +1,64 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { TableRecord } from "@/types/catalog";
+import type { TableFilters, TableRecord, TableSort, TableSortKey } from "@/types/catalog";
 import { StatusPill } from "@/components/Badge";
+import {
+  filterCatalogRows,
+  getTableSummary,
+  getUniqueSegments,
+  sortCatalogRows
+} from "@/lib/tableModel";
 
 type DataTablePreviewProps = {
   rows: TableRecord[];
 };
 
 export function DataTablePreview({ rows }: DataTablePreviewProps) {
-  const [filter, setFilter] = useState("");
-  const [sortDescending, setSortDescending] = useState(true);
+  const [filters, setFilters] = useState<TableFilters>({
+    search: "",
+    segment: "all",
+    status: "all"
+  });
+  const [sort, setSort] = useState<TableSort>({ key: "confidence", direction: "desc" });
+  const segments = useMemo(() => getUniqueSegments(rows), [rows]);
 
   const visibleRows = useMemo(() => {
-    const query = filter.trim().toLowerCase();
-    const filtered = query
-      ? rows.filter((row) =>
-          [row.accountSegment, row.signal, row.ownerWorkflow, row.status]
-            .join(" ")
-            .toLowerCase()
-            .includes(query)
-        )
-      : rows;
+    return sortCatalogRows(filterCatalogRows(rows, filters), sort);
+  }, [filters, rows, sort]);
 
-    return [...filtered].sort((a, b) =>
-      sortDescending ? b.confidence - a.confidence : a.confidence - b.confidence
+  const summary = useMemo(() => getTableSummary(visibleRows, rows.length), [rows.length, visibleRows]);
+  const hasActiveFilters = filters.search || filters.segment !== "all" || filters.status !== "all";
+
+  function updateFilter(key: keyof TableFilters, value: string) {
+    setFilters((current) => ({ ...current, [key]: value }));
+  }
+
+  function updateSort(key: TableSortKey) {
+    setSort((current) =>
+      current.key === key
+        ? { key, direction: current.direction === "asc" ? "desc" : "asc" }
+        : { key, direction: key === "confidence" || key === "lastReviewed" ? "desc" : "asc" }
     );
-  }, [filter, rows, sortDescending]);
+  }
+
+  function getAriaSort(key: TableSortKey) {
+    if (sort.key !== key) {
+      return "none";
+    }
+
+    return sort.direction === "asc" ? "ascending" : "descending";
+  }
 
   return (
     <div className="table-preview">
-      <div className="table-toolbar">
-        <label>
-          Filter sample records
-          <input
-            type="search"
-            value={filter}
-            onChange={(event) => setFilter(event.target.value)}
-            placeholder="Try Ready, Watch, or activation"
-          />
-        </label>
-        <button type="button" onClick={() => setSortDescending((value) => !value)}>
-          Confidence {sortDescending ? "high to low" : "low to high"}
-        </button>
-      </div>
+      <TableToolbar
+        filters={filters}
+        segments={segments}
+        onFilterChange={updateFilter}
+        onClear={() => setFilters({ search: "", segment: "all", status: "all" })}
+      />
+      <ResultSummary summary={summary} hasActiveFilters={Boolean(hasActiveFilters)} filters={filters} />
       <div className="table-scroll" role="region" aria-label="Static data table preview" tabIndex={0}>
         <table>
           <caption>
@@ -52,27 +67,54 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
           </caption>
           <thead>
             <tr>
-              <th scope="col">Account segment</th>
-              <th scope="col">Signal</th>
+              <th scope="col" aria-sort={getAriaSort("accountSegment")}>
+                <button type="button" className="table-sort-button" onClick={() => updateSort("accountSegment")}>
+                  Account segment
+                </button>
+              </th>
+              <th scope="col" aria-sort={getAriaSort("signal")}>
+                <button type="button" className="table-sort-button" onClick={() => updateSort("signal")}>
+                  Signal
+                </button>
+              </th>
               <th scope="col">Owner workflow</th>
-              <th scope="col">Confidence</th>
+              <th scope="col" aria-sort={getAriaSort("confidence")}>
+                <button type="button" className="table-sort-button" onClick={() => updateSort("confidence")}>
+                  Confidence
+                </button>
+              </th>
               <th scope="col">Status</th>
-              <th scope="col">Last reviewed</th>
+              <th scope="col" aria-sort={getAriaSort("lastReviewed")}>
+                <button type="button" className="table-sort-button" onClick={() => updateSort("lastReviewed")}>
+                  Last reviewed
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {visibleRows.map((row) => (
-              <tr key={row.id}>
-                <th scope="row">{row.accountSegment}</th>
-                <td>{row.signal}</td>
-                <td>{row.ownerWorkflow}</td>
-                <td>{row.confidence}%</td>
-                <td>
-                  <StatusPill status={row.status} />
+            {visibleRows.length > 0 ? (
+              visibleRows.map((row) => (
+                <tr key={row.id}>
+                  <th scope="row">{row.accountSegment}</th>
+                  <td>{row.signal}</td>
+                  <td>{row.ownerWorkflow}</td>
+                  <td>{row.confidence}%</td>
+                  <td>
+                    <StatusPill status={row.status} />
+                  </td>
+                  <td>{row.lastReviewed}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6}>
+                  <div className="table-empty-state">
+                    <strong>No matching sample records.</strong>
+                    <span>Adjust search, segment, or status filters to restore the table.</span>
+                  </div>
                 </td>
-                <td>{row.lastReviewed}</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
@@ -80,6 +122,83 @@ export function DataTablePreview({ rows }: DataTablePreviewProps) {
         Table clarity matters because many BtoB SaaS workflows rely on dense operational records. This
         phase demonstrates the baseline without adding a table library.
       </p>
+    </div>
+  );
+}
+
+type TableToolbarProps = {
+  filters: TableFilters;
+  segments: string[];
+  onFilterChange: (key: keyof TableFilters, value: string) => void;
+  onClear: () => void;
+};
+
+function TableToolbar({ filters, segments, onFilterChange, onClear }: TableToolbarProps) {
+  return (
+    <div className="table-toolbar">
+      <label>
+        Search records
+        <input
+          type="search"
+          value={filters.search}
+          onChange={(event) => onFilterChange("search", event.target.value)}
+          placeholder="Try Ready, Watch, or activation"
+        />
+      </label>
+      <label>
+        Segment
+        <select value={filters.segment} onChange={(event) => onFilterChange("segment", event.target.value)}>
+          <option value="all">All segments</option>
+          {segments.map((segment) => (
+            <option key={segment} value={segment}>
+              {segment}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Status
+        <select value={filters.status} onChange={(event) => onFilterChange("status", event.target.value)}>
+          <option value="all">All statuses</option>
+          <option value="Ready">Ready</option>
+          <option value="Watch">Watch</option>
+          <option value="Review">Review</option>
+        </select>
+      </label>
+      <button type="button" onClick={onClear}>
+        Clear filters
+      </button>
+    </div>
+  );
+}
+
+type ResultSummaryProps = {
+  summary: ReturnType<typeof getTableSummary>;
+  hasActiveFilters: boolean;
+  filters: TableFilters;
+};
+
+function ResultSummary({ summary, hasActiveFilters, filters }: ResultSummaryProps) {
+  return (
+    <div className="result-summary" aria-live="polite">
+      <p>
+        Showing <strong>{summary.visible}</strong> of <strong>{summary.total}</strong> sample records.
+        {summary.visible > 0 ? <> Average confidence is <strong>{summary.averageConfidence}%</strong>.</> : null}
+      </p>
+      <ul aria-label="Visible status counts">
+        <li>Ready: {summary.ready}</li>
+        <li>Watch: {summary.watch}</li>
+        <li>Review: {summary.review}</li>
+      </ul>
+      {hasActiveFilters ? (
+        <p className="active-filters">
+          Active filters: {filters.search ? `search "${filters.search}"` : "any search"},{" "}
+          {filters.segment === "all" ? "all segments" : filters.segment},{" "}
+          {filters.status === "all" ? "all statuses" : filters.status}
+        </p>
+      ) : (
+        <p className="active-filters">No filters are active.</p>
+      )}
     </div>
   );
 }
