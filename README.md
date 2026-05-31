@@ -28,14 +28,21 @@ Around those, the basics you'd want in any frontend project: a skip link and lan
 
 ## Current status
 
-The UI opens in Japanese, with an in-page switch to English. The table has search, filters, accessible sorting, result counts, an empty state, visible sort indicators, and a horizontal-scroll hint on mobile. The analytics chart derives a real trend from the sample data without a chart library, and has been through a manual visual QA pass.
+The UI opens in Japanese, with an in-page switch to English. The table has search, filters, accessible sorting, result counts, an empty state, visible sort indicators, and a horizontal-scroll hint on mobile. The analytics chart derives a real trend from the sample data without a chart library, and the deployed URL has been checked with review-only visual QA.
 
-Not done yet: E2E tests, deployment, and proper performance measurement.
+Deployment is complete through AWS Amplify Hosting from the public GitHub main branch. Not done yet: E2E tests and deeper performance measurement.
 
 **日本語:**
-現在の UI は日本語をデフォルトとし、画面内で英語への切り替えが可能です。データテーブルには検索、フィルタ、アクセシブルなソート機能、件数表示、Empty State、ソートインジケーター、モバイル向けの横スクロールヒントを実装済みです。分析グラフはチャートライブラリを使用せず、サンプルデータから傾向を算出してインライン SVG で描画しています。また、全体的な目視での QA を1度実施しています。
+現在の UI は日本語をデフォルトとし、画面内で英語への切り替えが可能です。データテーブルには検索、フィルタ、アクセシブルなソート機能、件数表示、Empty State、ソートインジケーター、モバイル向けの横スクロールヒントを実装済みです。分析グラフはチャートライブラリを使用せず、サンプルデータから傾向を算出してインライン SVG で描画しています。また、公開 URL は review-only visual QA で確認済みです。
 
-なお、E2E テスト、デプロイ、および本格的なパフォーマンス計測は未実施です。
+公開 GitHub repository の main branch から AWS Amplify Hosting でデプロイ済みです。なお、E2E テストとより深いパフォーマンス計測は未実施です。
+
+## Live demo
+
+- Public repository: https://github.com/teru-murata/b2b-saas-dashboard-catalog
+- Live demo: https://main.d2hds3qtnyld83.amplifyapp.com
+- Review status: lint, unit tests, typecheck, production build, audit, and deployed URL review-only visual QA are recorded as release-readiness evidence.
+- Scope: static public-safe sample data only; no backend, external API, real customer data, custom AWS infrastructure, or secrets are required.
 
 ## Setup
 

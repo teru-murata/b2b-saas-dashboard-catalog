@@ -115,6 +115,7 @@ type CatalogCopy = {
     table: { eyebrow: string; title: string; description: string };
     quality: { eyebrow: string; title: string; description: string };
     delivery: { eyebrow: string; title: string; description: string };
+    buildReview: { eyebrow: string; title: string; description: string };
     implementation: { eyebrow: string; title: string; description: string };
   };
   evidenceLabels: EvidenceLabels;
@@ -126,6 +127,7 @@ type CatalogCopy = {
   tableRecords: TableRecord[];
   qualityGates: QualityGate[];
   deliveryMilestones: DeliveryMilestone[];
+  buildReviewMilestones: DeliveryMilestone[];
   table: TableCopy;
   trend: TrendCopy;
   segment: SegmentCopy;
@@ -142,7 +144,8 @@ const englishCopy: CatalogCopy = {
     { href: "#dashboard", label: "Dashboard" },
     { href: "#table", label: "Table" },
     { href: "#quality", label: "Quality" },
-    { href: "#delivery", label: "Delivery" }
+    { href: "#delivery", label: "Delivery" },
+    { href: "#build-review", label: "Build / Review" }
   ],
   languageSwitch: {
     label: "Presentation language",
@@ -196,12 +199,18 @@ const englishCopy: CatalogCopy = {
       eyebrow: "Quality evidence",
       title: "Quality-oriented delivery",
       description:
-        "This catalog verifies lint, unit tests, typecheck, and build while keeping E2E and deeper measurement clearly deferred."
+        "This catalog verifies lint, unit tests, typecheck, production build, and deployed URL review while keeping E2E and deeper measurement clearly deferred."
     },
     delivery: {
       eyebrow: "Delivery notes",
       title: "Public-safe GitHub-style workflow",
       description: "The catalog is structured for small reviewable phases, sanitized summaries, and raw artifact hygiene."
+    },
+    buildReview: {
+      eyebrow: "Deployment evidence",
+      title: "Build, Deploy, and Review Evidence",
+      description:
+        "The public catalog now records local verification, GitHub main publication, AWS Amplify cloud deployment, and review-only visual QA without exposing private operational details."
     },
     implementation: {
       eyebrow: "Implementation notes",
@@ -323,7 +332,7 @@ const englishCopy: CatalogCopy = {
       demonstrates: "Skip link, landmarks, one H1, semantic table markup, visible focus, and text-backed status.",
       matters: "Accessible structure improves enterprise review quality and day-to-day usability.",
       phaseEvidence: "The app establishes semantic structure and keyboard-friendly controls.",
-      expandsLater: "Later phases can add browser-based accessibility checks and visual QA."
+      expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper browser accessibility checks can expand later."
     },
     {
       id: "performance",
@@ -345,7 +354,7 @@ const englishCopy: CatalogCopy = {
       demonstrates: "Lint, unit tests, typecheck, and production build scripts are part of the repository contract.",
       matters: "Engineering leads need lightweight proof that the app can be checked locally.",
       phaseEvidence: "Build notes record lint, test, typecheck, build, and audit results.",
-      expandsLater: "Later phases can add browser review and visual QA."
+      expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper measurement can expand later."
     },
     {
       id: "delivery",
@@ -479,9 +488,9 @@ const englishCopy: CatalogCopy = {
     },
     {
       id: "future-tests",
-      label: "Browser and visual review",
-      status: "planned",
-      detail: "E2E and deeper browser accessibility checks are deferred to later phases."
+      label: "Review-only visual QA",
+      status: "verified",
+      detail: "The deployed URL was checked with review-only visual QA. E2E and deeper browser accessibility checks remain deferred."
     }
   ],
   deliveryMilestones: [
@@ -508,6 +517,44 @@ const englishCopy: CatalogCopy = {
       label: "Japanese presentation mode",
       status: "demonstrated",
       detail: "Japanese is the default visible language, with English available from the switch."
+    }
+  ],
+  buildReviewMilestones: [
+    {
+      id: "next-react-typescript",
+      label: "Next.js / React / TypeScript implementation",
+      status: "demonstrated",
+      detail: "The catalog is implemented as a typed frontend app with static public-safe sample data."
+    },
+    {
+      id: "local-verification",
+      label: "Local verification",
+      status: "verified",
+      detail: "Lint, unit tests, typecheck, production build, and audit checks are part of the release-readiness pass."
+    },
+    {
+      id: "github-main",
+      label: "Published from GitHub main",
+      status: "verified",
+      detail: "The public repository main branch is the source for the hosted catalog."
+    },
+    {
+      id: "amplify-cloud-build",
+      label: "AWS Amplify cloud build",
+      status: "verified",
+      detail: "AWS Amplify Hosting builds and serves the Next.js app from the connected GitHub repository."
+    },
+    {
+      id: "agy-review-only-qa",
+      label: "Review-only visual QA",
+      status: "verified",
+      detail: "Agy review-only visual QA checked the deployed URL and reported no P0/P1 blockers."
+    },
+    {
+      id: "non-blocking-polish",
+      label: "Non-blocking polish remains",
+      status: "planned",
+      detail: "Remaining items are polish-level follow-ups, not blockers for sharing the public catalog."
     }
   ],
   table: {
@@ -582,7 +629,7 @@ const englishCopy: CatalogCopy = {
     },
     {
       title: "Deferred review depth",
-      body: "Unit tests exist for transformation logic. E2E, deeper browser accessibility checks, and deployment remain deferred."
+      body: "AWS Amplify Hosting deployment and review-only visual QA are complete. E2E and deeper browser accessibility checks remain future scope."
     }
   ],
   footer: "BtoB SaaS frontend catalog. Public-safe sample data only."
@@ -598,7 +645,8 @@ const japaneseCopy: CatalogCopy = {
     { href: "#dashboard", label: "ダッシュボード" },
     { href: "#table", label: "テーブル" },
     { href: "#quality", label: "品質" },
-    { href: "#delivery", label: "デリバリー" }
+    { href: "#delivery", label: "デリバリー" },
+    { href: "#build-review", label: "構築・レビュー" }
   ],
   languageSwitch: {
     label: "表示言語",
@@ -652,12 +700,18 @@ const japaneseCopy: CatalogCopy = {
       eyebrow: "品質証跡",
       title: "検証可能なデリバリー",
       description:
-        "lint、unit test、typecheck、build を確認しつつ、E2E とより深い計測は後続スコープとして明示します。"
+        "lint、unit test、typecheck、build、公開 URL の review-only 確認を記録しつつ、E2E とより深い計測は後続スコープとして明示します。"
     },
     delivery: {
       eyebrow: "デリバリーノート",
       title: "公開向けの GitHub スタイルワークフロー",
       description: "小さくレビューしやすいフェーズ、サニタイズ済みサマリー、raw artifact を残さない運用を示します。"
+    },
+    buildReview: {
+      eyebrow: "デプロイ証跡",
+      title: "構築・デプロイ・レビュー証跡",
+      description:
+        "ローカル検証、GitHub main からの公開、AWS Amplify cloud build、Agy review-only visual QA の結果を、公開可能な範囲で示します。"
     },
     implementation: {
       eyebrow: "実装ノート",
@@ -778,7 +832,7 @@ const japaneseCopy: CatalogCopy = {
       demonstrates: "skip link、landmark、1 つの H1、セマンティック table、見える focus、テキスト付き status。",
       matters: "アクセシブルな構造は、レビュー品質と日常的な使いやすさを高めます。",
       phaseEvidence: "セマンティックな構造とキーボード操作しやすい control を実装しています。",
-      expandsLater: "ブラウザ上のアクセシビリティ確認と視覚 QA を後続で追加できます。"
+      expandsLater: "外部ブラウザ視覚 QA は review-only で実施済みです。E2E とより深いアクセシビリティ確認は後続スコープです。"
     },
     {
       id: "performance",
@@ -800,7 +854,7 @@ const japaneseCopy: CatalogCopy = {
       demonstrates: "lint、unit test、typecheck、production build script を repository の確認項目に含めています。",
       matters: "エンジニアリングリードは、ローカルで確認できる軽量な証跡を必要とします。",
       phaseEvidence: "build notes に lint、test、typecheck、build、audit の結果を記録しています。",
-      expandsLater: "ブラウザレビューと視覚 QA は後続で追加できます。"
+      expandsLater: "外部ブラウザ視覚 QA は review-only で実施済みです。E2E とより深い計測は後続スコープです。"
     },
     {
       id: "delivery",
@@ -934,9 +988,9 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "future-tests",
-      label: "ブラウザ/E2E 確認",
-      status: "planned",
-      detail: "E2E とより深いブラウザ上のアクセシビリティ確認は後続スコープです。"
+      label: "Review-only visual QA",
+      status: "verified",
+      detail: "公開 URL は review-only visual QA で確認済みです。E2E とより深いブラウザ上のアクセシビリティ確認は後続スコープです。"
     }
   ],
   deliveryMilestones: [
@@ -963,6 +1017,44 @@ const japaneseCopy: CatalogCopy = {
       label: "日本語プレゼンテーションモード",
       status: "demonstrated",
       detail: "日本語を標準表示にし、英語にも切り替えられるようにしています。"
+    }
+  ],
+  buildReviewMilestones: [
+    {
+      id: "next-react-typescript",
+      label: "Next.js / React / TypeScript で実装",
+      status: "demonstrated",
+      detail: "静的な公開向けサンプルデータを使う、型付きフロントエンドアプリとして実装しています。"
+    },
+    {
+      id: "local-verification",
+      label: "lint、unit test、typecheck、production build で検証",
+      status: "verified",
+      detail: "ローカル検証項目を release readiness の確認に含めています。"
+    },
+    {
+      id: "github-main",
+      label: "GitHub main から公開",
+      status: "verified",
+      detail: "公開 repository の main branch を hosted catalog のソースにしています。"
+    },
+    {
+      id: "amplify-cloud-build",
+      label: "AWS Amplify Hosting の cloud build でデプロイ",
+      status: "verified",
+      detail: "GitHub 連携から Next.js アプリを build し、Amplify Hosting で公開しています。"
+    },
+    {
+      id: "agy-review-only-qa",
+      label: "Agy review-only visual QA で公開 URL を確認",
+      status: "verified",
+      detail: "公開 URL の review-only visual QA で P0/P1 blocker はありませんでした。"
+    },
+    {
+      id: "non-blocking-polish",
+      label: "残りは non-blocking polish",
+      status: "planned",
+      detail: "残作業は共有を止める blocker ではなく、polish レベルの後続項目です。"
     }
   ],
   table: {
@@ -1038,7 +1130,7 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       title: "後続スコープを明示",
-      body: "変換ロジックの unit test はあります。E2E、より深いブラウザ確認、デプロイは後続スコープです。"
+      body: "AWS Amplify Hosting の GitHub 連携で公開済みです。外部ブラウザ視覚 QA は review-only で実施済みです。E2E とより深い計測は後続スコープです。"
     }
   ],
   footer: "BtoB SaaS フロントエンドカタログ。公開向けのサンプルデータのみ。"

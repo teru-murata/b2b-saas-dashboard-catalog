@@ -67,7 +67,7 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Skip link, landmarks, one H1, semantic table markup, visible focus, and text-backed status.",
     matters: "Accessible structure improves enterprise review quality and day-to-day usability.",
     phaseEvidence: "This phase establishes semantic structure and keyboard-friendly controls.",
-    expandsLater: "Later phases can add browser-based accessibility checks and visual QA."
+    expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper browser accessibility checks can expand later."
   },
   {
     id: "performance",
@@ -87,7 +87,7 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Lint, unit tests, typecheck, and production build scripts are part of the repository contract.",
     matters: "Engineering leads need lightweight proof that the app can be checked locally.",
     phaseEvidence: "This phase records lint, test, typecheck, build, and audit results in public-safe build notes.",
-    expandsLater: "Later phases can add browser review and visual QA."
+    expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper measurement can expand later."
   },
   {
     id: "delivery",
@@ -274,9 +274,9 @@ export const qualityGates: QualityGate[] = [
   },
   {
     id: "future-tests",
-    label: "Browser and visual review",
-    status: "planned",
-    detail: "E2E, browser accessibility checks, and visual QA are deferred to later phases."
+    label: "Review-only visual QA",
+    status: "verified",
+    detail: "The deployed URL was checked with review-only visual QA. E2E and deeper browser accessibility checks remain deferred."
   }
 ];
 
@@ -301,8 +301,8 @@ export const deliveryMilestones: DeliveryMilestone[] = [
   },
   {
     id: "phase-three",
-    label: "Phase 3.5 direction",
-    status: "planned",
-    detail: "Next work should perform review-only visual QA after the enhanced screens are available."
+    label: "Amplify deployment review",
+    status: "verified",
+    detail: "GitHub main is deployed through AWS Amplify Hosting and checked with review-only visual QA."
   }
 ];

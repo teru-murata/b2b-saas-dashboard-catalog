@@ -138,6 +138,16 @@ export default function Home() {
         </Section>
 
         <Section
+          id="build-review"
+          eyebrow={copy.sections.buildReview.eyebrow}
+          title={copy.sections.buildReview.title}
+          description={copy.sections.buildReview.description}
+          className={styles.section}
+        >
+          <DeliveryTimeline milestones={copy.buildReviewMilestones} statusLabels={copy.statusLabels} />
+        </Section>
+
+        <Section
           id="implementation"
           eyebrow={copy.sections.implementation.eyebrow}
           title={copy.sections.implementation.title}
