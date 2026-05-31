@@ -340,7 +340,7 @@ a:focus-visible {
 
 .sparkline-panel svg {
   inline-size: 100%;
-  min-block-size: 160px;
+  min-block-size: 190px;
 }
 
 .sparkline-axis {
@@ -381,7 +381,10 @@ a:focus-visible {
 .sparkline-label--value {
   fill: var(--accent-strong);
   font-size: 0.68rem;
-  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-linejoin: round;
+  stroke-width: 4px;
 }
 
 .insight-summary {

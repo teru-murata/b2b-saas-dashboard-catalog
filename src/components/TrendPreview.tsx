@@ -21,7 +21,17 @@ type TrendPreviewProps = {
 export function TrendPreview({ points, copy }: TrendPreviewProps) {
   const max = Math.max(...points.map((point) => point.value));
   const min = Math.min(...points.map((point) => point.value));
-  const path = buildSparklinePath(points);
+  const chart = {
+    width: 380,
+    height: 176,
+    padding: 40
+  };
+  const plotBottom = chart.height - chart.padding;
+  const plotTop = chart.padding;
+  const plotWidth = chart.width - chart.padding * 2;
+  const plotHeight = chart.height - chart.padding * 2;
+  const range = max - min || 1;
+  const path = buildSparklinePath(points, chart.width, chart.height, chart.padding);
   const summary = getTrendSummary(points);
   const summarySentence =
     summary.direction === "up"
@@ -43,7 +53,7 @@ export function TrendPreview({ points, copy }: TrendPreviewProps) {
           <span id="sparkline-summary">{summarySentence}</span>
         </div>
         <svg
-          viewBox="0 0 360 140"
+          viewBox={`0 0 ${chart.width} ${chart.height}`}
           role="img"
           aria-labelledby="sparkline-svg-title sparkline-svg-desc"
           focusable="false"
@@ -52,27 +62,31 @@ export function TrendPreview({ points, copy }: TrendPreviewProps) {
           <desc id="sparkline-svg-desc">
             {summarySentence}
           </desc>
-          <line x1="14" y1="126" x2="346" y2="126" className="sparkline-axis" />
-          <line x1="14" y1="14" x2="14" y2="126" className="sparkline-axis" />
-          <text x="16" y="24" className="sparkline-label">
-            {formatPercent(max)}
-          </text>
-          <text x="16" y="122" className="sparkline-label">
-            {formatPercent(min)}
-          </text>
+          <line x1={chart.padding} y1={plotBottom} x2={chart.width - chart.padding} y2={plotBottom} className="sparkline-axis" />
+          <line x1={chart.padding} y1={plotTop} x2={chart.padding} y2={plotBottom} className="sparkline-axis" />
           <path d={path} className="sparkline-path" />
           {points.map((point, index) => {
-            const x = 14 + (index * (360 - 28)) / (points.length - 1);
-            const y = 126 - ((point.value - min) / (max - min || 1)) * 112;
+            const x = chart.padding + (index * plotWidth) / (points.length - 1);
+            const y = plotBottom - ((point.value - min) / range) * plotHeight;
+            const isFirst = index === 0;
+            const isLast = index === points.length - 1;
+            const valueX = isFirst ? x + 16 : isLast ? x - 16 : x;
+            const valueY = y - 20;
+            const valueAnchor = isFirst ? "start" : isLast ? "end" : "middle";
 
             return (
               <g key={point.id}>
-                <line x1={x} y1="126" x2={x} y2={y} className="sparkline-guide" />
+                <line x1={x} y1={plotBottom} x2={x} y2={y} className="sparkline-guide" />
                 <circle cx={x} cy={y} r="4.5" className="sparkline-point" />
-                <text x={x} y={Math.max(20, y - 10)} className="sparkline-label sparkline-label--value">
+                <text
+                  x={valueX}
+                  y={valueY}
+                  textAnchor={valueAnchor}
+                  className="sparkline-label sparkline-label--value"
+                >
                   {formatPercent(point.value)}
                 </text>
-                <text x={x} y="136" className="sparkline-label sparkline-label--tick">
+                <text x={x} y={chart.height - 10} className="sparkline-label sparkline-label--tick">
                   {point.label.replace("Week ", "W")}
                 </text>
               </g>
