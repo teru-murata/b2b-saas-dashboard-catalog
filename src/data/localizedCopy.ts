@@ -649,15 +649,15 @@ const englishCopy: CatalogCopy = {
 const japaneseCopy: CatalogCopy = {
   ...englishCopy,
   skipLink: "本文へ移動",
-  navLabel: "カタログ内セクション",
+  navLabel: "ページ内ナビゲーション",
   brand: "BtoB SaaS フロントエンドカタログ",
   navItems: [
     { href: "#overview", label: "概要" },
     { href: "#dashboard", label: "ダッシュボード" },
-    { href: "#table", label: "テーブル" },
+    { href: "#table", label: "データテーブル" },
     { href: "#quality", label: "品質" },
-    { href: "#delivery", label: "デリバリー" },
-    { href: "#build-review", label: "構築・レビュー" }
+    { href: "#delivery", label: "リリース" },
+    { href: "#build-review", label: "ビルド / レビュー" }
   ],
   languageSwitch: {
     label: "表示言語",
@@ -677,22 +677,22 @@ const japaneseCopy: CatalogCopy = {
     panelItems: [
       { label: "デフォルト言語", value: "日本語優先UI（英語切り替え機能付き）" },
       { label: "ライブデプロイ", value: "GitHub main から AWS Amplify Hosting" },
-      { label: "プロジェクトスコープ", value: "フロントエンドのみ、サンプルデータ、バックエンドなし" }
+      { label: "プロジェクトの対象範囲", value: "フロントエンドのみ、サンプルデータ、バックエンドなし" }
     ]
   },
   sections: {
     evidence: {
-      eyebrow: "証拠モデル",
-      title: "エンジニアリングリードが確認しやすい実装証拠",
+      eyebrow: "レビュー観点",
+      title: "実装エビデンス",
       description:
-        "以下のカードでは、すでに実装されている内容、データ量の多いSaaSダッシュボードにおいてそれが重要である理由、および意図的に将来のスコープとしている詳細な検証項目について説明しています。"
+        "以下のカードでは、すでに実装されている内容、データ量の多いSaaSダッシュボードにおいてそれが重要である理由、および意図的に今後の対応範囲としている詳細な検証項目について説明しています。"
     },
     dashboard: {
       eyebrow: "ダッシュボードプレビュー",
-      title: "データリッチなダッシュボードシナリオ",
+      title: "豊富なデータを扱うダッシュボード画面",
       description:
         "このダッシュボードは、BtoB SaaSチーム向けの週次ビジネスレビューをシミュレーションしたものであり、パイプラインの健全性、アダプションシグナル、ワークフローの品質、およびレビューキューを1つの見やすい画面に統合しています。",
-      scenarioEyebrow: "データリッチなダッシュボードシナリオ",
+      scenarioEyebrow: "ダッシュボードの利用シナリオ",
       scenarioTitle: "パイプライン健全性レビュー",
       scenarioDescription:
         "顧客のプライベートデータや外部サービスに依存することなく、レビュアーがレイアウト密度、型定義されたデータの境界、ステータス伝達、およびトレンドのコンテキストを検証できる、公開用に安全化されたシナリオです。",
@@ -705,45 +705,45 @@ const japaneseCopy: CatalogCopy = {
         {
           label: "拡張しやすい構成",
           detail:
-            "現在のスコープではダッシュボードのUI表示の実証を優先しており、ページネーション、保存済みビュー、API連携によるデータ取得などは後から追加可能な設計になっています。"
+            "この段階ではダッシュボード画面として成立することを優先しており、ページネーション、保存済みビュー、API連携によるデータ取得などは後から追加可能な設計になっています。"
         }
       ]
     },
     table: {
       eyebrow: "データ操作",
-      title: "データテーブルプレビュー",
+      title: "データテーブルの操作",
       description:
         "このテーブルは、実用的なデータ操作UIの例を示しています。検索、セグメントおよびステータスのフィルター、アクセシビリティに配慮したソート機能、結果件数の表示、空状態（Empty State）、モバイルでの横スクロール指示などが含まれます。"
     },
     quality: {
-      eyebrow: "品質証跡",
-      title: "検証可能なデリバリー",
+      eyebrow: "品質エビデンス",
+      title: "品質重視のリリース",
       description:
-        "本プロジェクトでは、リリース準備状況の証跡として、lint、ユニットテスト、型チェック、本番ビルド、npm audit、デプロイ先URLの検証、およびreview-only visual QAを記録しており、E2Eテストやより詳細な測定とは切り離して管理しています。"
+        "本プロジェクトでは、Lint、ユニットテスト、型チェック、本番ビルド、npm audit、デプロイURLの確認、およびreview-only visual QAを、リリース準備完了の確認結果として記録します。E2Eテストやより詳細な測定とは切り離して管理しています。"
     },
     delivery: {
-      eyebrow: "デリバリーノート",
-      title: "公開向けの GitHub スタイルワークフロー",
+      eyebrow: "リリースノート",
+      title: "公開可能なGitHubスタイルのワークフロー",
       description:
         "本リポジトリは、レビューしやすい小さな開発フェーズ、機密情報を除外した公開用のサマリー、および成果物のクリーンな管理によって構成されており、内部の計画資料を露出させることなくプロジェクトを評価できます。"
     },
     buildReview: {
-      eyebrow: "デプロイ証跡",
-      title: "構築・デプロイ・レビュー証跡",
+      eyebrow: "デプロイ実績",
+      title: "ビルド・デプロイ・レビューの検証記録",
       description:
-        "このセクションでは、実装の証跡と公開URLを紐づけています。具体的には、ローカル検証、GitHub main、AWS Amplify Hostingによるクラウドビルド、デプロイ済みページのレビュー、および進行の妨げにならない残りの微調整項目について記載しています。"
+        "このセクションでは、実装の確認結果と公開URLを紐づけています。具体的には、ローカル検証、GitHub main、AWS Amplify Hostingによるクラウドビルド、デプロイ済みページのレビュー、および進行の妨げにならない残りの微調整項目について記載しています。"
     },
     implementation: {
       eyebrow: "実装ノート",
-      title: "現在のスコープと意図的な制限",
+      title: "現在の対応範囲と意図的な制限事項",
       description:
-        "現在のアプリケーションは意図的にスコープを限定しています。バックエンド、認証、外部API、実際の顧客データを組み込むことなく、フロントエンドの構造、ダッシュボードのインタラクションパターン、およびリリースに向けた証跡の実証に特化しています。"
+        "現在のアプリケーションは意図的に開発範囲を限定しています。バックエンド、認証、外部API、実際の顧客データを組み込むことなく、フロントエンドの構造、ダッシュボードのインタラクションパターン、およびリリースに向けた確認結果の提示に特化しています。"
     }
   },
   evidenceLabels: {
     demonstrates: "示していること",
     matters: "重要な理由",
-    phaseEvidence: "現在の証拠",
+    phaseEvidence: "現在の確認結果",
     expandsLater: "今後の拡張"
   },
   statusLabels: {
@@ -791,18 +791,18 @@ const japaneseCopy: CatalogCopy = {
   evidenceCards: [
     {
       id: "dashboard-ui",
-      title: "データリッチなダッシュボード UI",
+      title: "豊富なデータを扱うダッシュボードUI",
       category: "dashboard_ui",
-      categoryLabel: "ダッシュボード UI",
+      categoryLabel: "ダッシュボードUI",
       status: "demonstrated",
       demonstrates: "サマリーカード、シナリオ文脈、セグメント分解、トレンドプレビュー、ワークフローシグナル。",
       matters: "BtoB SaaS では、密度の高いデータを判断しやすい形に変換する必要があります。",
       phaseEvidence: "型付きサンプルデータに基づく静的ダッシュボードプレビューを実装しています。",
-      expandsLater: "インタラクションが増えた段階で、測定済みのパフォーマンス証跡を追加できます。"
+      expandsLater: "今後のフェーズで、パフォーマンスの測定結果を追加できます。"
     },
     {
       id: "table-interaction",
-      title: "データテーブル操作",
+      title: "データテーブルの操作性",
       category: "data_table",
       categoryLabel: "データテーブル",
       status: "demonstrated",
@@ -813,9 +813,9 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "analytics-visual",
-      title: "分析ビジュアル",
+      title: "アナリティクスの可視化",
       category: "analytics_visualization",
-      categoryLabel: "分析ビジュアル",
+      categoryLabel: "アナリティクス",
       status: "demonstrated",
       demonstrates: "軽量な SVG トレンド、セグメントバー、値ラベル、テキストによるインサイト要約。",
       matters: "視覚要約は、元データを隠さずに方向性や変化を把握しやすくします。",
@@ -824,7 +824,7 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "components",
-      title: "再利用可能なコンポーネント構成",
+      title: "再利用性の高いコンポーネント設計",
       category: "component_architecture",
       categoryLabel: "コンポーネント",
       status: "demonstrated",
@@ -835,7 +835,7 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "typed-boundary",
-      title: "型安全なデータ境界",
+      title: "型安全なデータ境界の設計",
       category: "typed_boundary",
       categoryLabel: "型境界",
       status: "demonstrated",
@@ -846,7 +846,7 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "accessibility",
-      title: "アクセシビリティ基盤",
+      title: "アクセシビリティの基本設計",
       category: "accessibility",
       categoryLabel: "アクセシビリティ",
       status: "demonstrated",
@@ -857,31 +857,31 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "performance",
-      title: "パフォーマンスを意識した描画",
+      title: "パフォーマンスを考慮した描画処理",
       category: "performance",
       categoryLabel: "パフォーマンス",
       status: "planned",
-      demonstrates: "静的描画、小さなデータセット、依存抑制、テーブル/チャートのスコープ管理。",
+      demonstrates: "静的描画、小さなデータセット、依存抑制、テーブル/チャートの範囲管理。",
       matters: "ダッシュボード UI は、表現と表が増えるほど境界設計なしでは重くなります。",
       phaseEvidence: "チャート/テーブルライブラリを追加せず、ローカルで算出し、データは静的に保っています。",
       expandsLater: "テーブルとビジュアル描画の計測を後続で追加できます。"
     },
     {
       id: "testing",
-      title: "検証可能なデリバリー",
+      title: "テスト容易性を考慮した実装",
       category: "testing",
       categoryLabel: "テスト",
       status: "verified",
       demonstrates: "lint、unit test、typecheck、production build script を repository の確認項目に含めています。",
-      matters: "エンジニアリングリードは、ローカルで確認できる軽量な証跡を必要とします。",
+      matters: "技術レビューでは、ローカルで再現できる軽量な検証結果が判断材料になります。",
       phaseEvidence: "build notes に lint、test、typecheck、build、audit の結果を記録しています。",
       expandsLater: "リリースプロセスには現在、ローカルでのチェック、クラウドへのデプロイ、およびデプロイされたURLのレビューが含まれています。E2E自動化や、より詳細なパフォーマンス測定は後から追加可能です。"
     },
     {
       id: "delivery",
-      title: "公開向けデリバリーワークフロー",
+      title: "公開可能なリリースプロセス",
       category: "delivery_workflow",
-      categoryLabel: "デリバリー",
+      categoryLabel: "リリース",
       status: "demonstrated",
       demonstrates: "小さなフェーズ境界、サニタイズ済みサマリー、artifact hygiene、公開向けの言葉づかい。",
       matters: "リモートでの協働には、レビューしやすい変更と整った repository hygiene が必要です。",
@@ -1009,7 +1009,7 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "future-tests",
-      label: "デプロイ済みページのビジュアルレビュー",
+      label: "デプロイ後のビジュアルチェック",
       status: "verified",
       detail:
         "公開URLはreview-only visual QAで検証済みです。今回のカタログ更新にP0/P1のブロッカーは持ち込まれていません。E2Eや、より詳細なアクセシビリティ監査は今後の対応予定となります。"
@@ -1018,25 +1018,25 @@ const japaneseCopy: CatalogCopy = {
   deliveryMilestones: [
     {
       id: "public-safe-language",
-      label: "公開向けの言葉づかい",
+      label: "外部公開に適した表現の徹底",
       status: "demonstrated",
       detail: "repository copy は汎用的な BtoB SaaS フロントエンドカタログの表現に統一しています。"
     },
     {
       id: "small-phases",
-      label: "小さな実装フェーズ",
+      label: "スモールステップでの段階的実装",
       status: "demonstrated",
       detail: "テーブル、分析、レビュー、release readiness を小さく確認できる単位に分けています。"
     },
     {
       id: "artifact-hygiene",
-      label: "Artifact hygiene",
+      label: "成果物の整理",
       status: "demonstrated",
       detail: "raw runtime artifact、screenshot、recording、local log は Git に入れません。"
     },
     {
       id: "japanese-mode",
-      label: "日本語プレゼンテーションモード",
+      label: "日本語表示モードの導入",
       status: "demonstrated",
       detail: "日本語を標準表示にし、英語にも切り替えられるようにしています。"
     }
@@ -1050,31 +1050,31 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "local-verification",
-      label: "lint、unit test、typecheck、production build で検証",
+      label: "ローカル環境での動作検証",
       status: "verified",
       detail: "ローカル環境でのリリース準備完了基準として、Lint、ユニットテスト、型チェック、プロダクションビルド、および監査チェックが用いられています。"
     },
     {
       id: "github-main",
-      label: "GitHub main から公開",
+      label: "GitHub mainブランチからの自動デプロイ",
       status: "verified",
       detail: "ホストされるカタログのソースは公開リポジトリのmainブランチであるため、デプロイされたアプリはレビュー済みのコードまで遡って追跡可能です。"
     },
     {
       id: "amplify-cloud-build",
-      label: "AWS Amplify Hosting の cloud build でデプロイ",
+      label: "AWS Amplifyによるクラウドビルド",
       status: "verified",
       detail: "AWS Amplify Hostingが、連携されたGitHubリポジトリからNext.jsアプリをビルドし、公開URLを配信します。"
     },
     {
       id: "agy-review-only-qa",
-      label: "Agy review-only visual QA で公開 URL を確認",
+      label: "review-only visual QAによる検証",
       status: "verified",
       detail: "Agyによるreview-only visual QAがデプロイされたURLを検証し、カタログを共有する上でのP0/P1ブロッカーがないことを報告しました。"
     },
     {
       id: "non-blocking-polish",
-      label: "残りは non-blocking polish",
+      label: "進行に影響しない細かな調整",
       status: "planned",
       detail: "残りの作業は、E2E自動化、より詳細な測定、および任意の言語設定の永続化など、ブラッシュアップレベルのフォローアップのみに限定されています。"
     }
@@ -1154,7 +1154,7 @@ const japaneseCopy: CatalogCopy = {
     {
       title: "レビュー範囲の明確化",
       body:
-        "AWS Amplify Hostingへのデプロイおよびreview-only visual QAは完了しています。E2Eの自動化、より詳細なブラウザアクセシビリティ監査、およびパフォーマンス測定は、意図的に今後の対応スコープとして定義しています。"
+        "AWS Amplify Hostingへのデプロイおよびreview-only visual QAは完了しています。E2E自動化、より詳細なアクセシビリティ監査、およびパフォーマンス測定は、意図的に今後の対応計画としています。"
     }
   ],
   footer: "BtoB SaaSフロントエンドカタログ。外部公開可能な静的サンプルデータ、クラウドホストされたデモ、およびリリース判定用エビデンス。"
