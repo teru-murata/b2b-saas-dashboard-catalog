@@ -27,7 +27,6 @@ export function TrendPreview({ points, copy }: TrendPreviewProps) {
     padding: 40
   };
   const plotBottom = chart.height - chart.padding;
-  const plotTop = chart.padding;
   const plotWidth = chart.width - chart.padding * 2;
   const plotHeight = chart.height - chart.padding * 2;
   const range = max - min || 1;
@@ -63,25 +62,20 @@ export function TrendPreview({ points, copy }: TrendPreviewProps) {
             {summarySentence}
           </desc>
           <line x1={chart.padding} y1={plotBottom} x2={chart.width - chart.padding} y2={plotBottom} className="sparkline-axis" />
-          <line x1={chart.padding} y1={plotTop} x2={chart.padding} y2={plotBottom} className="sparkline-axis" />
           <path d={path} className="sparkline-path" />
           {points.map((point, index) => {
             const x = chart.padding + (index * plotWidth) / (points.length - 1);
             const y = plotBottom - ((point.value - min) / range) * plotHeight;
-            const isFirst = index === 0;
-            const isLast = index === points.length - 1;
-            const valueX = isFirst ? x + 16 : isLast ? x - 16 : x;
             const valueY = y - 20;
-            const valueAnchor = isFirst ? "start" : isLast ? "end" : "middle";
 
             return (
               <g key={point.id}>
                 <line x1={x} y1={plotBottom} x2={x} y2={y} className="sparkline-guide" />
                 <circle cx={x} cy={y} r="4.5" className="sparkline-point" />
                 <text
-                  x={valueX}
+                  x={x}
                   y={valueY}
-                  textAnchor={valueAnchor}
+                  textAnchor="middle"
                   className="sparkline-label sparkline-label--value"
                 >
                   {formatPercent(point.value)}
