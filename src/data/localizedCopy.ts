@@ -152,70 +152,76 @@ const englishCopy: CatalogCopy = {
     optionLabel: (label, active) => `${label}${active ? " selected" : ""}`
   },
   hero: {
-    eyebrow: "Public presentation-ready catalog",
-    title: "React / Next.js / TypeScript frontend catalog for BtoB SaaS analytics dashboards.",
+    eyebrow: "Cloud-hosted frontend catalog",
+    title: "BtoB SaaS analytics dashboard catalog built with React, Next.js, and TypeScript.",
     description:
-      "An evidence-driven frontend showcase for data-rich UI, reusable components, typed data boundaries, accessibility, performance-minded rendering, testable delivery, and a remote GitHub-style workflow.",
+      "This public catalog shows how a frontend-only dashboard can turn static BtoB SaaS sample data into a reviewable product surface: summary metrics, trend context, searchable records, accessibility basics, and a release path from GitHub main to AWS Amplify Hosting.",
     actions: [
-      { href: "#dashboard", label: "View dashboard preview" },
-      { href: "#table", label: "Inspect table preview" }
+      { href: "#dashboard", label: "Review the dashboard scenario" },
+      { href: "#table", label: "Check the data table behavior" }
     ],
-    panelLabel: "Phase 5B evidence summary",
-    panelTitle: "Current status",
+    panelLabel: "Release evidence snapshot",
+    panelTitle: "What can be verified now",
     panelItems: [
-      { label: "Japanese mode", value: "Default" },
-      { label: "English fallback", value: "Available" },
-      { label: "Lint, test, build", value: "Verified before commit" }
+      { label: "Default language", value: "Japanese-first UI with English switch" },
+      { label: "Live deployment", value: "GitHub main to AWS Amplify Hosting" },
+      { label: "Project scope", value: "Frontend-only, sample data, no backend" }
     ]
   },
   sections: {
     evidence: {
       eyebrow: "Evidence model",
       title: "Engineering-lead-friendly proof, without private context",
-      description: "Each card separates what exists now from what later phases can improve."
+      description:
+        "The cards below explain what is already implemented, why it matters in a data-heavy SaaS dashboard, and which deeper checks intentionally remain future scope."
     },
     dashboard: {
       eyebrow: "Dashboard preview",
       title: "Data-rich dashboard scenario",
       description:
-        "Static sample data shows how summary metrics, segment signals, and trend context can fit into one readable surface.",
+        "The dashboard simulates a weekly business review for BtoB SaaS teams, combining pipeline health, adoption signals, workflow quality, and a review queue into one readable screen.",
       scenarioEyebrow: "Data-rich dashboard scenario",
       scenarioTitle: "Pipeline health review",
       scenarioDescription:
-        "A static, public-safe scenario that combines account segment signals, operational efficiency, activation signals, and a review queue into one decision surface.",
+        "A public-safe scenario that lets reviewers inspect layout density, typed data boundaries, status communication, and trend context without relying on private customer data or external services.",
       scenarioItems: [
-        { label: "Typed boundary", detail: "sample records are imported from TypeScript data." },
-        { label: "Quality signal", detail: "status is expressed with text and color, never color alone." },
-        { label: "Future-ready", detail: "deeper table and analytics behavior is intentionally deferred." }
+        { label: "Typed boundary", detail: "Sample records are typed in TypeScript so UI assumptions are visible before integration work." },
+        { label: "Quality signal", detail: "Status uses text plus color so the signal remains readable without depending on color alone." },
+        {
+          label: "Future-ready",
+          detail: "The current scope proves the dashboard surface first; pagination, saved views, and API-backed data can be added later."
+        }
       ]
     },
     table: {
       eyebrow: "Data interaction",
       title: "Data table preview",
       description:
-        "A semantic table with typed sample records, search, segment/status filters, accessible sorting, result count, and empty state."
+        "The table demonstrates practical data-work UI: search, segment and status filters, accessible sorting, visible result counts, an empty state, and mobile horizontal-scroll guidance."
     },
     quality: {
       eyebrow: "Quality evidence",
       title: "Quality-oriented delivery",
       description:
-        "This catalog verifies lint, unit tests, typecheck, production build, and deployed URL review while keeping E2E and deeper measurement clearly deferred."
+        "The project records lint, unit tests, typecheck, production build, npm audit, deployed URL checks, and review-only visual QA as release-readiness evidence, while keeping E2E and deeper measurement separate."
     },
     delivery: {
       eyebrow: "Delivery notes",
       title: "Public-safe GitHub-style workflow",
-      description: "The catalog is structured for small reviewable phases, sanitized summaries, and raw artifact hygiene."
+      description:
+        "The repository is organized around small reviewable phases, sanitized public summaries, and artifact hygiene so the project can be evaluated without exposing local working notes."
     },
     buildReview: {
       eyebrow: "Deployment evidence",
       title: "Build, Deploy, and Review Evidence",
       description:
-        "The public catalog now records local verification, GitHub main publication, AWS Amplify cloud deployment, and review-only visual QA without exposing private operational details."
+        "This section connects implementation evidence to the public URL: local checks, GitHub main, AWS Amplify Hosting cloud build, deployed-page review, and the remaining non-blocking polish items."
     },
     implementation: {
       eyebrow: "Implementation notes",
       title: "Current scope and intentional limits",
-      description: "The app is useful for public review while keeping later work clearly labeled."
+      description:
+        "The current app is intentionally narrow: it proves frontend structure, dashboard interaction patterns, and release evidence without adding backend, authentication, external APIs, or real customer data."
     }
   },
   evidenceLabels: {
@@ -332,7 +338,7 @@ const englishCopy: CatalogCopy = {
       demonstrates: "Skip link, landmarks, one H1, semantic table markup, visible focus, and text-backed status.",
       matters: "Accessible structure improves enterprise review quality and day-to-day usability.",
       phaseEvidence: "The app establishes semantic structure and keyboard-friendly controls.",
-      expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper browser accessibility checks can expand later."
+      expandsLater: "The deployed page has been checked with review-only visual QA. E2E coverage and deeper browser accessibility audits remain future scope."
     },
     {
       id: "performance",
@@ -354,7 +360,7 @@ const englishCopy: CatalogCopy = {
       demonstrates: "Lint, unit tests, typecheck, and production build scripts are part of the repository contract.",
       matters: "Engineering leads need lightweight proof that the app can be checked locally.",
       phaseEvidence: "Build notes record lint, test, typecheck, build, and audit results.",
-      expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper measurement can expand later."
+      expandsLater: "The release path now includes local checks, cloud deployment, and deployed URL review. E2E automation and deeper performance measurement can be added later."
     },
     {
       id: "delivery",
@@ -488,9 +494,10 @@ const englishCopy: CatalogCopy = {
     },
     {
       id: "future-tests",
-      label: "Review-only visual QA",
+      label: "Deployed-page visual review",
       status: "verified",
-      detail: "The deployed URL was checked with review-only visual QA. E2E and deeper browser accessibility checks remain deferred."
+      detail:
+        "The public URL was checked with review-only visual QA. No P0/P1 blockers were carried into this catalog update; E2E and deeper accessibility audits remain future scope."
     }
   ],
   deliveryMilestones: [
@@ -524,37 +531,38 @@ const englishCopy: CatalogCopy = {
       id: "next-react-typescript",
       label: "Next.js / React / TypeScript implementation",
       status: "demonstrated",
-      detail: "The catalog is implemented as a typed frontend app with static public-safe sample data."
+      detail: "The catalog is implemented as a typed frontend app using static, public-safe sample data."
     },
     {
       id: "local-verification",
       label: "Local verification",
       status: "verified",
-      detail: "Lint, unit tests, typecheck, production build, and audit checks are part of the release-readiness pass."
+      detail: "Lint, unit tests, typecheck, production build, and audit checks are used as the local release-readiness baseline."
     },
     {
       id: "github-main",
       label: "Published from GitHub main",
       status: "verified",
-      detail: "The public repository main branch is the source for the hosted catalog."
+      detail: "The public repository main branch is the source of the hosted catalog, so the deployed app can be traced back to reviewed code."
     },
     {
       id: "amplify-cloud-build",
       label: "AWS Amplify cloud build",
       status: "verified",
-      detail: "AWS Amplify Hosting builds and serves the Next.js app from the connected GitHub repository."
+      detail: "AWS Amplify Hosting builds the Next.js app from the connected GitHub repository and serves the public URL."
     },
     {
       id: "agy-review-only-qa",
       label: "Review-only visual QA",
       status: "verified",
-      detail: "Agy review-only visual QA checked the deployed URL and reported no P0/P1 blockers."
+      detail: "Agy review-only visual QA checked the deployed URL and reported no P0/P1 blockers for sharing the catalog."
     },
     {
       id: "non-blocking-polish",
       label: "Non-blocking polish remains",
       status: "planned",
-      detail: "Remaining items are polish-level follow-ups, not blockers for sharing the public catalog."
+      detail:
+        "Remaining work is limited to polish-level follow-ups such as E2E automation, deeper measurement, and optional language preference persistence."
     }
   ],
   table: {
@@ -620,19 +628,22 @@ const englishCopy: CatalogCopy = {
   },
   implementationNotes: [
     {
-      title: "Static data only",
-      body: "Sample data is artificial and local. There is no backend, no external API data, and no real customer data."
+      title: "Public-safe static data",
+      body:
+        "All records are artificial sample data stored in the repository. The app does not connect to a backend, external API, production account, or real customer system."
     },
     {
-      title: "No chart or table libraries yet",
-      body: "The visual preview and table behavior are dependency-free. Table and analytics derivations use typed utilities instead of chart or table libraries."
+      title: "Lightweight frontend implementation",
+      body:
+        "The dashboard preview, table behavior, and SVG trend visual are implemented without chart or table libraries. Data transforms are isolated in typed utilities so they can be tested directly."
     },
     {
-      title: "Deferred review depth",
-      body: "AWS Amplify Hosting deployment and review-only visual QA are complete. E2E and deeper browser accessibility checks remain future scope."
+      title: "Review depth is explicit",
+      body:
+        "AWS Amplify Hosting deployment and review-only visual QA are complete. E2E automation, deeper browser accessibility audits, and performance measurement are intentionally marked as future scope."
     }
   ],
-  footer: "BtoB SaaS frontend catalog. Public-safe sample data only."
+  footer: "BtoB SaaS frontend catalog. Static public-safe sample data, cloud-hosted demo, and release-readiness evidence."
 };
 
 const japaneseCopy: CatalogCopy = {
@@ -653,70 +664,80 @@ const japaneseCopy: CatalogCopy = {
     optionLabel: (label, active) => `${label}${active ? "を選択中" : "に切り替え"}`
   },
   hero: {
-    eyebrow: "公開URLで提示できるカタログ",
-    title: "BtoB SaaS 分析ダッシュボードのための React / Next.js / TypeScript フロントエンドカタログ。",
+    eyebrow: "クラウドホスト型フロントエンドカタログ",
+    title: "React、Next.js、TypeScriptで構築されたBtoB SaaS分析ダッシュボードカタログ",
     description:
-      "データリッチな UI、再利用可能なコンポーネント、型安全なデータ境界、アクセシビリティ、軽量な描画、検証可能なデリバリーを実装証拠で見せるフロントエンドショーケースです。",
+      "この公開カタログでは、フロントエンドのみのダッシュボードによって、静的なBtoB SaaSのサンプルデータをレビュー可能なプロダクト画面へとどのように昇華できるかを示しています。具体的には、サマリーメトリクス、トレンド情報、検索可能なレコード、アクセシビリティの基本、そしてGitHub mainからAWS Amplify Hostingへのリリースパスなどを確認できます。",
     actions: [
-      { href: "#dashboard", label: "ダッシュボードを見る" },
-      { href: "#table", label: "テーブルを確認する" }
+      { href: "#dashboard", label: "ダッシュボードシナリオをレビュー" },
+      { href: "#table", label: "データテーブルの挙動を確認" }
     ],
-    panelLabel: "Phase 5B の証拠サマリー",
-    panelTitle: "現在の状態",
+    panelLabel: "リリースエビデンスのスナップショット",
+    panelTitle: "現在検証可能な内容",
     panelItems: [
-      { label: "日本語モード", value: "標準表示" },
-      { label: "英語表示", value: "切り替え可能" },
-      { label: "Lint / Test / Build", value: "commit 前に検証" }
+      { label: "デフォルト言語", value: "日本語優先UI（英語切り替え機能付き）" },
+      { label: "ライブデプロイ", value: "GitHub main から AWS Amplify Hosting" },
+      { label: "プロジェクトスコープ", value: "フロントエンドのみ、サンプルデータ、バックエンドなし" }
     ]
   },
   sections: {
     evidence: {
       eyebrow: "証拠モデル",
       title: "エンジニアリングリードが確認しやすい実装証拠",
-      description: "各カードで、現在実装済みの証拠と今後広げられる余地を分けて示します。"
+      description:
+        "以下のカードでは、すでに実装されている内容、データ量の多いSaaSダッシュボードにおいてそれが重要である理由、および意図的に将来のスコープとしている詳細な検証項目について説明しています。"
     },
     dashboard: {
       eyebrow: "ダッシュボードプレビュー",
       title: "データリッチなダッシュボードシナリオ",
       description:
-        "静的なサンプルデータで、サマリーメトリクス、セグメントシグナル、トレンド文脈を 1 つの読みやすい画面に整理します。",
+        "このダッシュボードは、BtoB SaaSチーム向けの週次ビジネスレビューをシミュレーションしたものであり、パイプラインの健全性、アダプションシグナル、ワークフローの品質、およびレビューキューを1つの見やすい画面に統合しています。",
       scenarioEyebrow: "データリッチなダッシュボードシナリオ",
       scenarioTitle: "パイプライン健全性レビュー",
       scenarioDescription:
-        "アカウントセグメント、運用効率、活性化シグナル、レビュー待ちを 1 つの判断面にまとめた公開向けの静的シナリオです。",
+        "顧客のプライベートデータや外部サービスに依存することなく、レビュアーがレイアウト密度、型定義されたデータの境界、ステータス伝達、およびトレンドのコンテキストを検証できる、公開用に安全化されたシナリオです。",
       scenarioItems: [
-        { label: "型安全な境界", detail: "サンプルレコードは TypeScript データから読み込みます。" },
-        { label: "品質シグナル", detail: "ステータスは色だけでなくテキストでも表現します。" },
-        { label: "拡張しやすい構成", detail: "より深いテーブル操作や分析表現は後続フェーズに分けています。" }
+        { label: "型安全な境界", detail: "サンプルレコードはTypeScriptで型定義されているため、システム統合前にUI側の前提条件が可視化されます。" },
+        {
+          label: "品質シグナル",
+          detail: "ステータス表示にはテキストと色の両方を使用しているため、色だけに依存することなくシグナルを正確に読み取ることができます。"
+        },
+        {
+          label: "拡張しやすい構成",
+          detail:
+            "現在のスコープではダッシュボードのUI表示の実証を優先しており、ページネーション、保存済みビュー、API連携によるデータ取得などは後から追加可能な設計になっています。"
+        }
       ]
     },
     table: {
       eyebrow: "データ操作",
       title: "データテーブルプレビュー",
       description:
-        "型付きサンプルレコード、検索、セグメント/ステータスフィルタ、アクセシブルな並び替え、件数表示、空状態を持つセマンティックなテーブルです。"
+        "このテーブルは、実用的なデータ操作UIの例を示しています。検索、セグメントおよびステータスのフィルター、アクセシビリティに配慮したソート機能、結果件数の表示、空状態（Empty State）、モバイルでの横スクロール指示などが含まれます。"
     },
     quality: {
       eyebrow: "品質証跡",
       title: "検証可能なデリバリー",
       description:
-        "lint、unit test、typecheck、build、公開 URL の review-only 確認を記録しつつ、E2E とより深い計測は後続スコープとして明示します。"
+        "本プロジェクトでは、リリース準備状況の証跡として、lint、ユニットテスト、型チェック、本番ビルド、npm audit、デプロイ先URLの検証、およびreview-only visual QAを記録しており、E2Eテストやより詳細な測定とは切り離して管理しています。"
     },
     delivery: {
       eyebrow: "デリバリーノート",
       title: "公開向けの GitHub スタイルワークフロー",
-      description: "小さくレビューしやすいフェーズ、サニタイズ済みサマリー、raw artifact を残さない運用を示します。"
+      description:
+        "本リポジトリは、レビューしやすい小さな開発フェーズ、機密情報を除外した公開用のサマリー、および成果物のクリーンな管理によって構成されており、内部の計画資料を露出させることなくプロジェクトを評価できます。"
     },
     buildReview: {
       eyebrow: "デプロイ証跡",
       title: "構築・デプロイ・レビュー証跡",
       description:
-        "ローカル検証、GitHub main からの公開、AWS Amplify cloud build、Agy review-only visual QA の結果を、公開可能な範囲で示します。"
+        "このセクションでは、実装の証跡と公開URLを紐づけています。具体的には、ローカル検証、GitHub main、AWS Amplify Hostingによるクラウドビルド、デプロイ済みページのレビュー、および進行の妨げにならない残りの微調整項目について記載しています。"
     },
     implementation: {
       eyebrow: "実装ノート",
       title: "現在のスコープと意図的な制限",
-      description: "公開レビューに十分な範囲を実装し、後続作業は明確にラベル付けしています。"
+      description:
+        "現在のアプリケーションは意図的にスコープを限定しています。バックエンド、認証、外部API、実際の顧客データを組み込むことなく、フロントエンドの構造、ダッシュボードのインタラクションパターン、およびリリースに向けた証跡の実証に特化しています。"
     }
   },
   evidenceLabels: {
@@ -832,7 +853,7 @@ const japaneseCopy: CatalogCopy = {
       demonstrates: "skip link、landmark、1 つの H1、セマンティック table、見える focus、テキスト付き status。",
       matters: "アクセシブルな構造は、レビュー品質と日常的な使いやすさを高めます。",
       phaseEvidence: "セマンティックな構造とキーボード操作しやすい control を実装しています。",
-      expandsLater: "外部ブラウザ視覚 QA は review-only で実施済みです。E2E とより深いアクセシビリティ確認は後続スコープです。"
+      expandsLater: "デプロイ済みのページはreview-only visual QAで検証されています。E2Eのカバーや、より詳細なブラウザアクセシビリティ監査は今後の対応予定となります。"
     },
     {
       id: "performance",
@@ -854,7 +875,7 @@ const japaneseCopy: CatalogCopy = {
       demonstrates: "lint、unit test、typecheck、production build script を repository の確認項目に含めています。",
       matters: "エンジニアリングリードは、ローカルで確認できる軽量な証跡を必要とします。",
       phaseEvidence: "build notes に lint、test、typecheck、build、audit の結果を記録しています。",
-      expandsLater: "外部ブラウザ視覚 QA は review-only で実施済みです。E2E とより深い計測は後続スコープです。"
+      expandsLater: "リリースプロセスには現在、ローカルでのチェック、クラウドへのデプロイ、およびデプロイされたURLのレビューが含まれています。E2E自動化や、より詳細なパフォーマンス測定は後から追加可能です。"
     },
     {
       id: "delivery",
@@ -988,9 +1009,10 @@ const japaneseCopy: CatalogCopy = {
     },
     {
       id: "future-tests",
-      label: "Review-only visual QA",
+      label: "デプロイ済みページのビジュアルレビュー",
       status: "verified",
-      detail: "公開 URL は review-only visual QA で確認済みです。E2E とより深いブラウザ上のアクセシビリティ確認は後続スコープです。"
+      detail:
+        "公開URLはreview-only visual QAで検証済みです。今回のカタログ更新にP0/P1のブロッカーは持ち込まれていません。E2Eや、より詳細なアクセシビリティ監査は今後の対応予定となります。"
     }
   ],
   deliveryMilestones: [
@@ -1024,37 +1046,37 @@ const japaneseCopy: CatalogCopy = {
       id: "next-react-typescript",
       label: "Next.js / React / TypeScript で実装",
       status: "demonstrated",
-      detail: "静的な公開向けサンプルデータを使う、型付きフロントエンドアプリとして実装しています。"
+      detail: "このカタログは、静的かつ公開可能な安全なサンプルデータを使用した、型定義されたフロントエンドアプリとして実装されています。"
     },
     {
       id: "local-verification",
       label: "lint、unit test、typecheck、production build で検証",
       status: "verified",
-      detail: "ローカル検証項目を release readiness の確認に含めています。"
+      detail: "ローカル環境でのリリース準備完了基準として、Lint、ユニットテスト、型チェック、プロダクションビルド、および監査チェックが用いられています。"
     },
     {
       id: "github-main",
       label: "GitHub main から公開",
       status: "verified",
-      detail: "公開 repository の main branch を hosted catalog のソースにしています。"
+      detail: "ホストされるカタログのソースは公開リポジトリのmainブランチであるため、デプロイされたアプリはレビュー済みのコードまで遡って追跡可能です。"
     },
     {
       id: "amplify-cloud-build",
       label: "AWS Amplify Hosting の cloud build でデプロイ",
       status: "verified",
-      detail: "GitHub 連携から Next.js アプリを build し、Amplify Hosting で公開しています。"
+      detail: "AWS Amplify Hostingが、連携されたGitHubリポジトリからNext.jsアプリをビルドし、公開URLを配信します。"
     },
     {
       id: "agy-review-only-qa",
       label: "Agy review-only visual QA で公開 URL を確認",
       status: "verified",
-      detail: "公開 URL の review-only visual QA で P0/P1 blocker はありませんでした。"
+      detail: "Agyによるreview-only visual QAがデプロイされたURLを検証し、カタログを共有する上でのP0/P1ブロッカーがないことを報告しました。"
     },
     {
       id: "non-blocking-polish",
       label: "残りは non-blocking polish",
       status: "planned",
-      detail: "残作業は共有を止める blocker ではなく、polish レベルの後続項目です。"
+      detail: "残りの作業は、E2E自動化、より詳細な測定、および任意の言語設定の永続化など、ブラッシュアップレベルのフォローアップのみに限定されています。"
     }
   ],
   table: {
@@ -1121,19 +1143,21 @@ const japaneseCopy: CatalogCopy = {
   },
   implementationNotes: [
     {
-      title: "静的データのみ",
-      body: "サンプルデータは人工的でローカルです。バックエンド、外部 API データ、実データは含みません。"
+      title: "公開可能な静的データ",
+      body: "すべてのレコードはリポジトリ内に保存されたダミーのサンプルデータです。本アプリは、バックエンド、外部API、本番アカウント、または実際の顧客システムには接続しません。"
     },
     {
-      title: "チャート/テーブルライブラリなし",
-      body: "ビジュアルプレビューとテーブル操作は依存ライブラリなしで実装しています。算出処理は型付き utility に分離しています。"
+      title: "軽量なフロントエンド実装",
+      body:
+        "ダッシュボードのプレビュー、テーブルの挙動、およびSVGによるトレンド表示は、チャートやテーブルのライブラリを使用せずに実装されています。データ変換処理は型定義されたユーティリティに分離されているため、直接テストが可能です。"
     },
     {
-      title: "後続スコープを明示",
-      body: "AWS Amplify Hosting の GitHub 連携で公開済みです。外部ブラウザ視覚 QA は review-only で実施済みです。E2E とより深い計測は後続スコープです。"
+      title: "レビュー範囲の明確化",
+      body:
+        "AWS Amplify Hostingへのデプロイおよびreview-only visual QAは完了しています。E2Eの自動化、より詳細なブラウザアクセシビリティ監査、およびパフォーマンス測定は、意図的に今後の対応スコープとして定義しています。"
     }
   ],
-  footer: "BtoB SaaS フロントエンドカタログ。公開向けのサンプルデータのみ。"
+  footer: "BtoB SaaSフロントエンドカタログ。外部公開可能な静的サンプルデータ、クラウドホストされたデモ、およびリリース判定用エビデンス。"
 };
 
 export const localizedCopy: Record<Locale, CatalogCopy> = {

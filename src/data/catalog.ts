@@ -67,7 +67,7 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Skip link, landmarks, one H1, semantic table markup, visible focus, and text-backed status.",
     matters: "Accessible structure improves enterprise review quality and day-to-day usability.",
     phaseEvidence: "This phase establishes semantic structure and keyboard-friendly controls.",
-    expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper browser accessibility checks can expand later."
+    expandsLater: "The deployed page has been checked with review-only visual QA. E2E coverage and deeper browser accessibility audits remain future scope."
   },
   {
     id: "performance",
@@ -87,7 +87,7 @@ export const evidenceCards: EvidenceCard[] = [
     demonstrates: "Lint, unit tests, typecheck, and production build scripts are part of the repository contract.",
     matters: "Engineering leads need lightweight proof that the app can be checked locally.",
     phaseEvidence: "This phase records lint, test, typecheck, build, and audit results in public-safe build notes.",
-    expandsLater: "Review-only visual QA has checked the deployed URL; E2E and deeper measurement can expand later."
+    expandsLater: "The release path now includes local checks, cloud deployment, and deployed URL review. E2E automation and deeper performance measurement can be added later."
   },
   {
     id: "delivery",
@@ -274,9 +274,10 @@ export const qualityGates: QualityGate[] = [
   },
   {
     id: "future-tests",
-    label: "Review-only visual QA",
+    label: "Deployed-page visual review",
     status: "verified",
-    detail: "The deployed URL was checked with review-only visual QA. E2E and deeper browser accessibility checks remain deferred."
+    detail:
+      "The public URL was checked with review-only visual QA. No P0/P1 blockers were carried into this catalog update; E2E and deeper accessibility audits remain future scope."
   }
 ];
 
@@ -303,6 +304,7 @@ export const deliveryMilestones: DeliveryMilestone[] = [
     id: "phase-three",
     label: "Amplify deployment review",
     status: "verified",
-    detail: "GitHub main is deployed through AWS Amplify Hosting and checked with review-only visual QA."
+    detail:
+      "GitHub main is deployed through AWS Amplify Hosting and checked with review-only visual QA, so the public URL can be traced back to reviewed code."
   }
 ];
