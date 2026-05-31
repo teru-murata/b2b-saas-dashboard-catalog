@@ -741,18 +741,18 @@ const japaneseCopy: CatalogCopy = {
     }
   },
   evidenceLabels: {
-    demonstrates: "示していること",
-    matters: "重要な理由",
-    phaseEvidence: "現在の確認結果",
-    expandsLater: "今後の拡張"
+    demonstrates: "実証",
+    matters: "意義",
+    phaseEvidence: "裏付け",
+    expandsLater: "拡張予定"
   },
   statusLabels: {
-    demonstrated: "実装済み",
-    planned: "計画",
+    demonstrated: "実証済み",
+    planned: "計画中",
     verified: "検証済み",
-    Ready: "Ready",
-    Watch: "Watch",
-    Review: "Review"
+    Ready: "準備完了",
+    Watch: "注視",
+    Review: "レビュー"
   },
   dashboardMetrics: [
     {
